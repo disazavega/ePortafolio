@@ -12,6 +12,10 @@ class ModelMapper {
     $this->dbHelper = DBHelper::getInstance();
   }
   
+  /**
+   * Load single field into model by it's id
+   * @return - Object
+   */
   function load($id) {
     $model = new $this->modelClass;
     

@@ -7,7 +7,7 @@ class BaseModel {
     
     /*
      * This code block provides
-     * default getters and setters for all functions
+     * default getters and setters for all properties
      * any getter / setter function can be
      * safely overridden
      */
