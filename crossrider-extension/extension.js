@@ -21,7 +21,7 @@ appAPI.ready(function($) {
     };
     var GUI_CONTAINER = $(document.createElement("div"))
     GUI_CONTAINER.attr({id: 'GUIContainer'})
-    GUI_CONTAINER.css({display: 'none', backgroundColor: 'red', width: '100px', height: '100px'})
+    GUI_CONTAINER.css({display: 'none', border: "1px solid black", width: '100px', height: '100px', backgroundColor: 'white'})
     var hideContainer = function (e) {
         GUI_CONTAINER.css("display", "none")
         //$(e).unbind("focusout", hideContainerFocusOut)
@@ -47,9 +47,9 @@ appAPI.ready(function($) {
             top: o.top + evt.currentTarget.width,
             left: o.left +  + evt.currentTarget.height,
             display: 'block',
-            backgroundColor: 'red',
-            width: '500px',
-            height: '350px'
+            width: '190px',
+            height: '350px',
+            padding: '5px'
         })
         load_url("http://127.0.0.1:8080/home.php")
         if (focusedField) {
