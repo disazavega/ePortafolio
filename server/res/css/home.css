@@ -1,14 +1,51 @@
 .autocomplete-history {
-    color:pink;
 }
 
-.autocomplete-history dt {
+.autocomplete-history dt:hover {
     font-weight: bold;
+    background-color: #d4d4d4;
+    border-color: #d4d4d4;
 }
-
+.autocomplete-history dt {
+    background-color: #f1f1f1;
+    border: 1px solid #f1f1f1;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
 .autocomplete-history dd {
     display: none;
 }
+
+
+.autocomplete-container {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+#GUIContainer h2 {
+    font-size: 1em;
+    color: #8c8c8c;
+    font-weight: bold;
+
+}
+
+#GUIContainer {
+    font-size: 0.9em;
+    overflow: hidden;
+}
+
+.gui-subblock {
+    margin-top: 1em;
+    overflow: auto;
+}
+
+.gui-halfblock {
+    height: 165px; /* 350/2 - 2*5 of padding */
+}
+
+
 
 /* This is the tag we are using to pass JavaScript along with the HTML
  * Do not display it, it's there for JS, not for you, human being!
