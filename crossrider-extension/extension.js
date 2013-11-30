@@ -16,9 +16,23 @@ appAPI.ready(function($) {
     var GUI_CONTAINER = $(document.createElement("div"))
     GUI_CONTAINER.attr({id: 'GUIContainer'})
     GUI_CONTAINER.css({display: 'none', backgroundColor: 'red', width: '100px', height: '100px'})
-    var hideContainerFocusOut = function (e) {
+    var hideContainer = function (e) {
         GUI_CONTAINER.css("display", "none")
-        $(e).unbind("focusout", hideContainerFocusOut)
+        //$(e).unbind("focusout", hideContainerFocusOut)
+    };
+    var focusThisOut = function (e) {
+        var o = GUI_CONTAINER.offset();
+        if (!(
+                e.pageX >= o.left && e.pageX <= (o.left + GUI_CONTAINER.width())
+                && e.pageY >= o.top && e.pageY <= (o.top + GUI_CONTAINER.height())
+            )) {
+            //alert("Click was at " + e.pageX + "," + e.pageY + " while offset=" + o.left + "," + o.top)
+            hideContainer()
+            self = this
+            setTimeout(function () {
+                $(document).unbind('click', focusThisOut)
+            }, 100)
+        }
     };
     var openGUI = function (evt) {
         var o = $(evt.currentTarget).offset()
@@ -31,10 +45,13 @@ appAPI.ready(function($) {
             width: '500px',
             height: '350px'
         })
-        load_url("http://127.0.0.1:8080/plop.php")
+        load_url("http://127.0.0.1:8080/home.php")
         if (focusedField) {
-            focusedField.focus() // set the focus back to the field 
-            focusedField.focusout(hideContainerFocusOut);
+            setTimeout(function () {
+                $(document).click(focusThisOut);
+            }, 150)
+            //focusedField.focus() // set the focus back to the field   
+            //focusedField.focusout(hideContainerFocusOut);
         }
     }
 
