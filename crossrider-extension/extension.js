@@ -1,4 +1,4 @@
-  /************************************************************************************
+/************************************************************************************
   This is your Page Code. The appAPI.ready() code block will be executed on every page load.
   For more information please visit our docs site: http://docs.crossrider.com
 *************************************************************************************/
@@ -9,7 +9,17 @@ DOM_BUTTON_ELEM.height = 20;
 MARGIN_RIGHT = 5;
 
 appAPI.ready(function($) {
-
+    var focusedField = null;
+    var load_url = function (url, data, callback) {
+        GUI_CONTAINER.load(url, data, callback)
+    };
+    var GUI_CONTAINER = $(document.createElement("div"))
+    GUI_CONTAINER.attr({id: 'GUIContainer'})
+    GUI_CONTAINER.css({display: 'none', backgroundColor: 'red', width: '100px', height: '100px'})
+    var hideContainerFocusOut = function (e) {
+        GUI_CONTAINER.css("display", "none")
+        $(e).unbind("focusout", hideContainerFocusOut)
+    };
     var openGUI = function (evt) {
         var o = $(evt.currentTarget).offset()
         GUI_CONTAINER.css({
@@ -21,11 +31,12 @@ appAPI.ready(function($) {
             width: '500px',
             height: '350px'
         })
+        load_url("http://127.0.0.1:8080/plop.php")
+        if (focusedField) {
+            focusedField.focus() // set the focus back to the field 
+            focusedField.focusout(hideContainerFocusOut);
+        }
     }
-
-    GUI_CONTAINER = $(document.createElement("div"))
-    GUI_CONTAINER.attr({id: 'GUIContainer'})
-    GUI_CONTAINER.css({display: 'none', backgroundColor: 'red', width: '100px', height: '100px'})
 
     // Place your code here (you can also define new functions above this scope)
     // The $ object is the extension's jQuery object
@@ -83,11 +94,9 @@ appAPI.ready(function($) {
                 "left": o.left + form_pos.width() - newInstance.width,
                 "top": o.top
             })
+            focusedField = form_pos
         });
-        fields.focusout(function (e) {
-            console.log("The focusout() has been launched on this element:")
-        });
-        
+     
     //});
 
 });
