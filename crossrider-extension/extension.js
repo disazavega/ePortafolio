@@ -11,7 +11,13 @@ MARGIN_RIGHT = 5;
 appAPI.ready(function($) {
     var focusedField = null;
     var load_url = function (url, data, callback) {
-        GUI_CONTAINER.load(url, data, callback)
+        GUI_CONTAINER.load(url, data, function () {
+            var to_eval = GUI_CONTAINER.find('scripttoload')
+            if (to_eval.length) {
+                //alert("We are going to evaluate:" + to_eval.get(0).innerHTML)
+                eval(to_eval.get(0).innerHTML)// Hey hey
+            }
+        })
     };
     var GUI_CONTAINER = $(document.createElement("div"))
     GUI_CONTAINER.attr({id: 'GUIContainer'})

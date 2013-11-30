@@ -1,0 +1,18 @@
+.autocomplete-history {
+    color:pink;
+}
+
+.autocomplete-history dt {
+    font-weight: bold;
+}
+
+.autocomplete-history dd {
+    display: none;
+}
+
+/* This is the tag we are using to pass JavaScript along with the HTML
+ * Do not display it, it's there for JS, not for you, human being!
+ */
+scripttoload {
+    display: none;
+}
