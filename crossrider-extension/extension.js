@@ -3,6 +3,7 @@
   For more information please visit our docs site: http://docs.crossrider.com
 *************************************************************************************/
 DOM_BUTTON_ELEM = document.createElement("img");
+// TODO: host this image in a proper location...
 DOM_BUTTON_ELEM.src = "https://cdn4.iconfinder.com/data/icons/brightmix/128/monotone_arrow_next_right.png";
 DOM_BUTTON_ELEM.width = 20;
 DOM_BUTTON_ELEM.height = 20;
@@ -48,7 +49,7 @@ appAPI.ready(function($) {
             left: o.left +  + evt.currentTarget.height,
             display: 'block',
             width: '190px',
-            height: '350px',
+            maxHeight: '350px',
             padding: '5px'
         })
         load_url("http://127.0.0.1:8080/home.php")

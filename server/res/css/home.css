@@ -38,11 +38,12 @@
 
 .gui-subblock {
     margin-top: 1em;
-    overflow: auto;
+    max-height: 165px; /* 350/2 - 2*5 of padding */
 }
 
-.gui-halfblock {
-    height: 165px; /* 350/2 - 2*5 of padding */
+.gui-halfblock .gui-block-content {
+    overflow: auto;
+    max-height: 145px;
 }
 
 
