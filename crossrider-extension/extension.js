@@ -22,7 +22,7 @@ appAPI.ready(function($) {
     };
     var GUI_CONTAINER = $(document.createElement("div"))
     GUI_CONTAINER.attr({id: 'GUIContainer'})
-    GUI_CONTAINER.css({display: 'none', border: "1px solid black", width: '100px', height: '100px', backgroundColor: 'white'})
+    GUI_CONTAINER.css({display: 'none', backgroundColor: 'red', width: '100px', height: '100px'})
     var hideContainer = function (e) {
         GUI_CONTAINER.css("display", "none")
         //$(e).unbind("focusout", hideContainerFocusOut)
