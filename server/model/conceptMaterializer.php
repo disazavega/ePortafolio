@@ -6,6 +6,7 @@ class ConceptMaterializer extends BaseModel {
   public $fieldId;
   public $tableId;
   public $nameConcept;
+  public $formId;
   
 }
 ?>
