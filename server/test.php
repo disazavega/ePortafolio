@@ -3,8 +3,7 @@
 include_once(__DIR__ . '/model/modelMapper.php');
 include_once(__DIR__ . '/model/field.php');
 
-
-class Test() {
+class Test{
   function testFields() {
     $fieldMapper = new ModelMapper(get_class(new Field()));
     $fields = $fieldMapper->loadAll();
@@ -16,6 +15,9 @@ class Test() {
 }
 
 $t = new Test();
-$t->test();
+$t->testFields();
+
 
 ?>
+
+
