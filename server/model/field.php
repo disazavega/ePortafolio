@@ -11,6 +11,7 @@ class Field extends BaseModel {
   public $id;
   public $name;
   public $type;
+  public $idForm;
   
 }
 ?>

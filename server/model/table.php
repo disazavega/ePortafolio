@@ -3,7 +3,7 @@ include_once('baseModel.php');
 class Table extends BaseModel {
   public $_table = "table";
   public $id;
-  public $schemaId;
+  public $idSchema;
   public $name;
   
 }

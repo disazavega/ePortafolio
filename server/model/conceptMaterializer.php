@@ -1,12 +1,11 @@
 <?php
 include_once('baseModel.php');
 class ConceptMaterializer extends BaseModel {
-  public $_table = "concept_materializer";
+  public $_table = "conceptMaterializer";
   public $id;
-  public $fieldId;
-  public $tableId;
-  public $nameConcept;
-  public $formId;
+  public $idForm;
+  public $idTable;
+  public $name;
   
 }
 ?>

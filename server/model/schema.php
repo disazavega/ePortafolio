@@ -5,7 +5,7 @@ class Schema extends BaseModel {
   public $id;
   public $name;
   public $author;
-  public $created_at;
+  public $createdAt;
   
 }
 ?>

@@ -1,10 +1,11 @@
 <?php
 include_once('baseModel.php');
 class ForeignKey extends BaseModel {
-  public $_table = "foreign_key";
+  public $_table = "foreignKey";
   public $id;
-  public $schemaId;
+  public $idTable;
   public $name;
+  public $type;
   
 }
 ?>

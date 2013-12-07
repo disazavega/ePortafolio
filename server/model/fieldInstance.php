@@ -1,9 +1,9 @@
 <?php
 include_once('baseModel.php');
 class FieldInstance extends BaseModel {
-  public $_table = "field_instance";
+  public $_table = "fieldInstance";
   public $id;
-  public $fieldId;
+  public $idField;
   public $value;
   public $date;
   
