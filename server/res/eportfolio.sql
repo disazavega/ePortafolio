@@ -2,14 +2,17 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+DROP SCHEMA IF EXISTS `eportfolio` ;
 CREATE SCHEMA IF NOT EXISTS `eportfolio` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 USE `eportfolio` ;
 
 -- -----------------------------------------------------
 -- Table `eportfolio`.`form`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `eportfolio`.`form` ;
+
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`form` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `url` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
@@ -19,6 +22,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eportfolio`.`field`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `eportfolio`.`field` ;
+
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`field` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
@@ -37,6 +42,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eportfolio`.`fieldInstance`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `eportfolio`.`fieldInstance` ;
+
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`fieldInstance` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `value` VARCHAR(45) NULL ,
@@ -55,8 +62,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eportfolio`.`schema`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `eportfolio`.`schema` ;
+
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`schema` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `author` VARCHAR(45) NULL ,
   `createdAt` VARCHAR(45) NULL ,
@@ -67,6 +76,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eportfolio`.`table`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `eportfolio`.`table` ;
+
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`table` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
@@ -84,6 +95,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eportfolio`.`attribute`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `eportfolio`.`attribute` ;
+
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`attribute` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `idTable` INT NOT NULL ,
@@ -102,6 +115,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eportfolio`.`concetpMaterialized`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `eportfolio`.`concetpMaterialized` ;
+
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`concetpMaterialized` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
@@ -126,6 +141,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eportfolio`.`alignment`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `eportfolio`.`alignment` ;
+
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`alignment` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `idField` INT NOT NULL ,
@@ -156,6 +173,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eportfolio`.`key`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `eportfolio`.`key` ;
+
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`key` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `idTable` INT NOT NULL ,
@@ -174,6 +193,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eportfolio`.`foreignKey`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `eportfolio`.`foreignKey` ;
+
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`foreignKey` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `idTable` INT NOT NULL ,
