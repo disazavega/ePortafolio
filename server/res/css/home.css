@@ -26,7 +26,7 @@
 
 #GUIContainer h2 {
     font-size: 1em;
-    color: #8c8c8c;
+    color: #757576;
     font-weight: bold;
 
 }
@@ -46,7 +46,14 @@
     max-height: 145px;
 }
 
-
+.gui-folding-block-title {
+    margin-top: 5px;
+    background-color: #d4d4d4;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border: 1px solid #d4d4d4;
+    border-radius: 5px;
+}
 
 /* This is the tag we are using to pass JavaScript along with the HTML
  * Do not display it, it's there for JS, not for you, human being!
