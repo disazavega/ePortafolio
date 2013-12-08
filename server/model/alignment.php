@@ -4,7 +4,7 @@ class Alignment extends BaseModel {
   public $_table = "alignment";
   public $id;
   public $idField;
-  public $idConcept;
+  public $idConceptMaterialized;
   public $idAttribute;
   
 }

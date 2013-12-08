@@ -1,6 +1,6 @@
 <?php
 include_once('baseModel.php');
-class Table extends BaseModel {
+class Concept extends BaseModel {
   public $_table = "table";
   public $id;
   public $idSchema;

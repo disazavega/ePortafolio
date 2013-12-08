@@ -8,7 +8,8 @@ class ModelMapper {
   
   function __construct($modelClass) {
     $this->modelClass = $modelClass;
-    $this->_table = (new $this->modelClass)->_table;
+    $obj = new $this->modelClass;
+    $this->_table = $obj->_table;
     $this->dbHelper = DBHelper::getInstance();
   }
   

@@ -4,7 +4,7 @@ class ConceptMaterializer extends BaseModel {
   public $_table = "conceptMaterializer";
   public $id;
   public $idForm;
-  public $idTable;
+  public $idConcept;
   public $name;
   
 }

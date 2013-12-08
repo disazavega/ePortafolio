@@ -5,7 +5,7 @@
 include_once(__DIR__ . '/model/modelMapper.php');
 include_once(__DIR__ . '/model/alignment.php');
 include_once(__DIR__ . '/model/attribute.php');
-include_once(__DIR__ . '/model/table.php');
+include_once(__DIR__ . '/model/concept.php');
 include_once(__DIR__ . '/model/schema.php');
 include_once(__DIR__ . '/model/conceptMaterializer.php');
 
@@ -40,11 +40,11 @@ function ListConcepts() {
 	}
 
 //Services definition: S0202
-function MaterializeConcept($fiedId, $tableId, $conceptName){
+function MaterializeConcept($idForm, $idConcept, $conceptName){
 	$temp = new ConceptMaterializer();	
-	$temp->fieldId = $fiedId;
-	$temp->tableId = $tableId;
-	$temp->nameConcept = $conceptName;
+	$temp->idForm = $idForm;
+	$temp->idConcept = $idConcept;
+	$temp->name = $conceptName;
 	return $this->conceptsMapper->save($temp);
 
 }
@@ -52,7 +52,7 @@ function MaterializeConcept($fiedId, $tableId, $conceptName){
 //Services definition: S0301
 function UpdateMaterializedConcept($id, $name){
 	$temp = $this->conceptsMapper->load($id);
-	$temp->nameConcept = $name;
+	$temp->name = $name;
 	return $this->conceptsMapper->save($temp);
 }
 

@@ -74,11 +74,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `eportfolio`.`table`
+-- Table `eportfolio`.`concept`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eportfolio`.`table` ;
+DROP TABLE IF EXISTS `eportfolio`.`concept` ;
 
-CREATE  TABLE IF NOT EXISTS `eportfolio`.`table` (
+CREATE  TABLE IF NOT EXISTS `eportfolio`.`concept` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `idSchema` INT NOT NULL ,
@@ -99,14 +99,14 @@ DROP TABLE IF EXISTS `eportfolio`.`attribute` ;
 
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`attribute` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `idTable` INT NOT NULL ,
+  `idConcept` INT NOT NULL ,
   `name` VARCHAR(45) NULL ,
   `type` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_attribute_table1_idx` (`idTable` ASC) ,
-  CONSTRAINT `fk_attribute_table1`
-    FOREIGN KEY (`idTable` )
-    REFERENCES `eportfolio`.`table` (`id` )
+  INDEX `fk_attribute_concept1_idx` (`idConcept` ASC) ,
+  CONSTRAINT `fk_attribute_concept1`
+    FOREIGN KEY (`idConcept` )
+    REFERENCES `eportfolio`.`concept` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -121,18 +121,18 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`concetpMaterialized` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `idForm` INT NOT NULL ,
-  `idTable` INT NOT NULL ,
+  `idConcept` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_concetpMaterialized_form1_idx` (`idForm` ASC) ,
-  INDEX `fk_concetpMaterialized_table1_idx` (`idTable` ASC) ,
+  INDEX `fk_concetpMaterialized_concept1_idx` (`idConcept` ASC) ,
   CONSTRAINT `fk_concetpMaterialized_form1`
     FOREIGN KEY (`idForm` )
     REFERENCES `eportfolio`.`form` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_concetpMaterialized_table1`
-    FOREIGN KEY (`idTable` )
-    REFERENCES `eportfolio`.`table` (`id` )
+  CONSTRAINT `fk_concetpMaterialized_concept1`
+    FOREIGN KEY (`idConcept` )
+    REFERENCES `eportfolio`.`concept` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -147,11 +147,11 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`alignment` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `idField` INT NOT NULL ,
   `idAttribute` INT NOT NULL ,
-  `idConcept` INT NOT NULL ,
+  `idConceptMaterialized` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_alignment_field1_idx` (`idField` ASC) ,
   INDEX `fk_alignment_attribute1_idx` (`idAttribute` ASC) ,
-  INDEX `fk_alignment_concetpMaterialized1_idx` (`idConcept` ASC) ,
+  INDEX `fk_alignment_concetpMaterialized1_idx` (`idConceptMaterialized` ASC) ,
   CONSTRAINT `fk_alignment_field1`
     FOREIGN KEY (`idField` )
     REFERENCES `eportfolio`.`field` (`id` )
@@ -163,7 +163,7 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`alignment` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_alignment_concetpMaterialized1`
-    FOREIGN KEY (`idConcept` )
+    FOREIGN KEY (`idConceptMaterialized` )
     REFERENCES `eportfolio`.`concetpMaterialized` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -177,14 +177,14 @@ DROP TABLE IF EXISTS `eportfolio`.`key` ;
 
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`key` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `idTable` INT NOT NULL ,
+  `idConcept` INT NOT NULL ,
   `name` VARCHAR(45) NULL ,
   `type` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_key_table1_idx` (`idTable` ASC) ,
-  CONSTRAINT `fk_key_table1`
-    FOREIGN KEY (`idTable` )
-    REFERENCES `eportfolio`.`table` (`id` )
+  INDEX `fk_key_concept1_idx` (`idConcept` ASC) ,
+  CONSTRAINT `fk_key_concept1`
+    FOREIGN KEY (`idConcept` )
+    REFERENCES `eportfolio`.`concept` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -197,14 +197,14 @@ DROP TABLE IF EXISTS `eportfolio`.`foreignKey` ;
 
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`foreignKey` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `idTable` INT NOT NULL ,
+  `idConcept` INT NOT NULL ,
   `name` VARCHAR(45) NULL ,
   `type` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_foreignKey_table1_idx` (`idTable` ASC) ,
-  CONSTRAINT `fk_foreignKey_table1`
-    FOREIGN KEY (`idTable` )
-    REFERENCES `eportfolio`.`table` (`id` )
+  INDEX `fk_foreignKey_concept1_idx` (`idConcept` ASC) ,
+  CONSTRAINT `fk_foreignKey_concept1`
+    FOREIGN KEY (`idConcept` )
+    REFERENCES `eportfolio`.`concept` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

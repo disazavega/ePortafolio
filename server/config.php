@@ -3,6 +3,6 @@ return array(
   'dbhost' => 'localhost',
   'db' => 'eportfolio',
   'username' => 'root',
-  'password'=> ''
+  'password'=> '12345678'
 );
 ?>
