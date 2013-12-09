@@ -7,94 +7,85 @@ include_once(__DIR__ . '/model/alignment.php');
 include_once(__DIR__ . '/model/attribute.php');
 include_once(__DIR__ . '/model/concept.php');
 include_once(__DIR__ . '/model/schema.php');
-include_once(__DIR__ . '/model/conceptMaterializer.php');
+include_once(__DIR__ . '/model/conceptMaterialized.php');
 
-class ConceptMaterialized{
+class Services {
 
-	private $conceptsMapper;// = new ModelMapper(get_class(new ConceptMaterializer()));
+	private $conceptMapper;// = new ModelMapper(get_class(new ConceptMaterialized()));
+	private $conceptMaterializedMapper; // 
 
 	function __construct(){
-		$this->conceptsMapper = new ModelMapper(get_class(new ConceptMaterializer()));
+		$this->conceptMapper = new ModelMapper(get_class(new Concept()));
+		$this->conceptMaterializedMapper = new ModelMapper(get_class(new ConceptMaterialized()));
 	}
 	
-
-//Services definition: S0101
-//requires reimplementation for the link hashing
-  function ListMaterializedConceptsForm($formId) {
-    $concepts = array();
-	$materializedConcepts = $this->conceptsMapper->loadAll();//loadBy("formId", $formId);
-    foreach ($materializedConcepts as $materializedConcept) {
-      $concepts[] = $materializedConcept->getNameConcept();
+    //Services definition: S0101
+    //requires reimplementation for the link hashing
+    function ListMaterializedConceptsForm($formId) {
+        $materializedConcepts  = array();
+	$materializedConcepts = $this->conceptMaterializedMapper->loadBy("formId", $formId);
+        return $materializedConcepts;
     }
-    return $concepts;
-  }
 
-//Services definition: S0201
-function ListConcepts() {
-    $concepts = array();
-    $queryConcepts = $this->conceptsMapper->loadAll();
-    foreach ($queryConcepts as $queryConcept) {
-      $concepts[] = $queryConcept->getNameConcept();
-    	}
-    return $concepts;
-	}
+    //Services definition: S0201
+    function ListConcepts() {
+        $queryConcepts = array();
+        $queryConcepts = $this->conceptMapper->loadAll();
+        return $queryConcepts;
+    }
 
-//Services definition: S0202
-function MaterializeConcept($idForm, $idConcept, $conceptName){
-	$temp = new ConceptMaterializer();	
+    //Services definition: S0202
+    function MaterializeConcept($idForm, $idConcept, $conceptName){
+	$temp = new ConceptMaterialized(); 
 	$temp->idForm = $idForm;
 	$temp->idConcept = $idConcept;
 	$temp->name = $conceptName;
-	return $this->conceptsMapper->save($temp);
-
-}
-
-//Services definition: S0301
-function UpdateMaterializedConcept($id, $name){
-	$temp = $this->conceptsMapper->load($id);
-	$temp->name = $name;
-	return $this->conceptsMapper->save($temp);
-}
-
-
-//Services definition: S0401
-function UnMaterializeConcept($id) {
-	$temp = $this->conceptsMapper->load($id);
-	$this->conceptsMapper->delete($temp);
-	}
-
-//Services definition: S0501
-function ListAlignmentsMC($idMC){
-	$alignmentsMapper = new ModelMapper(get_class(new Alignment()));
-	$alignments = $alignmentsMapper->loadBy("conceptMaterializerId", $idMC);    
-    return $alignments;
-}
-
-//Services definition: S0602
-function ListAttributesConcept($idMC){
-	$attributesMapper = new ModelMapper(get_class(new Attribute()));
-	$attributesList = $attributesMapper->loadBy("tableId", $this->conceptsMapper->load($idMC)->tableId);
-	$attributes = array();
-	foreach ($attributesList as $attribute) {
-      $attributes[] = $attribute->getName();
+	return $this->conceptMaterializedMapper->save($temp);
     }
-	return $attributes;
-	}
 
-//Services definition: S0603
-function CreateAlignment($idMC, $idField, $idAttribute){
+    //Services definition: S0301
+    function UpdateMaterializedConcept($id, $name, $idConcept){
+        $temp = $this->conceptMaterializedMapper->load($id);
+	$temp->name = $name;
+        $temp->idConcept = $idConcept;
+	return $this->conceptMaterializedMapper->save($temp);
+    }
+
+
+    //Services definition: S0401
+    function UnMaterializeConcept($id) {
+	$temp = $this->conceptMaterializedMapper->load($id);
+	$this->conceptMaterializedMapper->delete($temp);
+    }
+
+    //Services definition: S0501
+    function ListAlignmentsMC($idMC){
+	$alignmentsMapper = new ModelMapper(get_class(new Alignment()));
+	$alignments = $alignmentsMapper->loadBy("conceptMaterializedId", $idMC);    
+        return $alignments;
+    }
+
+    //Services definition: S0602
+    function ListAttributesConcept($idMC){
+	$attributesMapper = new ModelMapper(get_class(new Attribute()));
+	$attributesList = $attributesMapper->loadBy("tableId", $this->conceptMaterializedMapper->load($idMC)->tableId);
+	return $attributesList;
+    }
+
+    //Services definition: S0603
+    function CreateAlignment($idMC, $idField, $idAttribute){
 	$alignmentMapper = new ModelMapper(get_class(new Alignment()));
 	$temp = new Alignment();	
-	$temp->conceptMaterializerId = $idMC;
+	$temp->conceptMaterializedId = $idMC;
 	$temp->fieldId = $idField;
 	$temp->attributeId = $idAttribute;
 	return $alignmentMapper->save($temp);
-}
+    }
 
-//Services definition: S0801
-function DeleteAlignment($idMC, $idField, $idAttribute){
+    //Services definition: S0801
+    function DeleteAlignment($idMC, $idField, $idAttribute){
 	$alignmentsMapper = new ModelMapper(get_class(new Alignment()));
-	$alignments = $alignmentsMapper->loadBy("conceptMaterializerId",$idMC);
+	$alignments = $alignmentsMapper->loadBy("conceptMaterializedId",$idMC);
 	if (!empty($alignments)){
 		foreach($alignments as $alignment){
 			if($alignment->fieldId == $idField && $alignment->attributeId == $idAttribute){
@@ -106,46 +97,114 @@ function DeleteAlignment($idMC, $idField, $idAttribute){
 		echo "No Alignments matching the criteria!";
 	//$this->alignmentsMapper->delete($temp);
 	//return $alignmentsMapper->delete($temp);
-}
+    }
 
-//Services definition: S0901
-function ListSchemas(){
+    //Services definition: S0901
+    function ListSchemas(){
 	$schemasMapper = new ModelMapper(get_class(new Schema()));
 	return $schemasMapper->loadAll();
-}
+    }
 
-//Services definition: S1001
-function ListConceptSchemas($idSchema){
-	$schemasMapper = new ModelMapper(get_class(new Schema()));
-	return $schemasMapper->load($idSchema);
-}
+    //Services definition: S1001
+    function ListConceptSchemas($idSchema){
+	return $this->conceptMapper->loadBy('idSchema', $idSchema);
+    }
 
-//Services definition: S1002
-function CreateSchemaEmpty($name, $author){
+    //Services definition: S1002
+    function CreateSchema($name, $author){
 	$schemasMapper = new ModelMapper(get_class(new Schema()));
 	$temp = new Schema();	
 	$temp->name = $name;
 	$temp->author = $author;
+        //TODO add date field 
 	return $schemasMapper->save($temp);
-}
-
-//Services definition: S1101
-function UpdateSchema($idSchema, $name, $author){
+    }
+    
+    //Services definition S1003
+    function CreateConcept($idSchema, $conceptName){
+        $temp = new Concept();
+        $temp->idSchema = $idSchema;
+        $temp->name = $conceptName;
+        return $this->conceptMapper->save($temp);
+    } 
+    
+    //Services definition S1004
+    function CreateAttribute($idConcept, $attrName, $typeAttr){
+        $attrMapper = new ModelMapper(get_class(new Attribute()));
+        $temp = new Attribute();
+        $temp->idConcept = $idConcept;
+        $temp->name = $attrName;
+        $temp->type = $typeAttr;
+        return $attrMapper->save($temp);
+    } 
+    
+    //Services definition: S1101
+    function UpdateSchema($idSchema, $name, $author){
 	$schemasMapper = new ModelMapper(get_class(new Schema()));
 	$temp = new Schema();	
 	$temp->id = $idSchema;
 	$temp->name = $name;
 	$temp->author = $author;
+        //TODO add date field
 	return $schemasMapper->save($temp);
-}
-
-//Services definition S1201
-function DeleteSchema($idSchema){
+    }
+    
+    //Services definition: S1102
+    function UpdateConcept($idSchema, $conceptName){
+        $temp = new Concept();
+        $temp->idSchema = $idSchema;
+        $temp->name = $conceptName;
+        return $this->conceptMapper->save($temp);
+    } 
+    
+    //Services definition: S1103
+    function UpdateAttribute($idConcept, $attrName, $typeAttr){
+        $attrMapper = new ModelMapper(get_class(new Attribute()));
+        $temp = new Attribute();
+        $temp->idConcept = $idConcept;
+        $temp->name = $attrName;
+        $temp->type = $typeAttr;
+        return $attrMapper->save($temp);
+    }
+    
+    //Services definition S1201
+    function DeleteSchema($idSchema){
 	$schemasMapper = new ModelMapper(get_class(new Schema()));
-	$temp = $schemasMapper->load($idSchema);
-	$schemasMapper->delete($temp);
-	}
-
+	
+        //Load
+        $concepts = $this->conceptMapper->loadBy('idSchema', $idSchema);
+        $tempSchema = $schemasMapper->load($idSchema);
+        
+        //Delete
+        if($concepts != null){
+            foreach ($concepts as $tempConcept) {
+                //delete Concept CASCADE
+                $this->DeleteConcept($tempConcept->id);
+             }
+        }
+        $schemasMapper->delete($tempSchema);
+    }
+    
+    //Services definition S1301
+    function ListAttributeConcept($idConcept){
+        $attrMapper = new ModelMapper(get_class(new Attribute()));
+        return $attrMapper->loadBy('idConcept', $idConcept);
+    }
+    
+    //Services definition S1501
+    function DeleteConcept($idConcept){
+       //Load 
+        $attrMapper = new ModelMapper(get_class(new Attribute()));
+        $attributes = $attrMapper->loadBy('idConcept', $idConcept);
+        //delete attributes CASCADE
+        if($attributes != null){
+            foreach ($attributes as $attribute) {
+                $attrMapper->delete($attribute);
+            }
+        }
+        //Delete Concept
+        $this->conceptMapper->delete($tempConcept);
+    }
 }
 
 $s = new ConceptMaterialized();

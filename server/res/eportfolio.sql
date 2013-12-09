@@ -1,4 +1,4 @@
--- MySQLdump
+-- MySQLdump --
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`field` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `type` VARCHAR(45) NULL ,
-  `idForm` INT NOT NULL ,
+  `idForm` VARCHAR(250) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_field_form1_idx` (`idForm` ASC) ,
   CONSTRAINT `fk_field_form1`
@@ -122,7 +122,7 @@ DROP TABLE IF EXISTS `eportfolio`.`concetpMaterialized` ;
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`concetpMaterialized` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
-  `idForm` INT NOT NULL ,
+  `idForm` VARCHAR(250) NOT NULL ,
   `idConcept` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_concetpMaterialized_form1_idx` (`idForm` ASC) ,

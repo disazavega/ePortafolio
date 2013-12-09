@@ -4,11 +4,13 @@ include_once(__DIR__ . '/model/modelMapper.php');
 include_once(__DIR__ . '/model/field.php');
 include_once(__DIR__ . '/model/form.php');
 
-class Test{
+class Test {
+    
+  var $fieldMapper; 
   
-  
-  $fieldMapper = new ModelMapper(get_class(new Field())); 
-  
+  function __construct() {
+      $this->fieldMapper = new ModelMapper(get_class(new Field())); 
+  }
   /**
    * inserting a singe row
    * 
@@ -32,7 +34,7 @@ class Test{
     $field = new Field();
     $field->setName('myField1');
     $field->setType('fieldType1');
-    $field->idForm($formId);
+    $field->setIdForm($formId);
     $this->fieldMapper->save($field);
   }
   
@@ -82,14 +84,14 @@ class Test{
   
 }
 
-/*
+
 $t = new Test();
 $t->insertFields();
 $t->updateFields();
 $t->retrieveAllFields();
 $t->retrieveByFilter();
 $t->deleteField();
-*/
+
 
 ?>
 

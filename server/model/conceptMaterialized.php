@@ -1,12 +1,20 @@
 <?php
 include_once('baseModel.php');
-class ForeignKey extends BaseModel {
-  public $_table = "foreignKey";
+class ConceptMaterialized extends BaseModel {
+  public $_table = "conceptMaterialized";
   public $id;
+  public $idForm;
   public $idConcept;
   public $name;
-  public $type;
   
+  public function getIdForm() {
+      return $this->idForm;
+  }
+
+  public function setIdForm($idForm) {
+      $this->idForm = $idForm;
+  }
+
   public function getIdConcept() {
       return $this->idConcept;
   }
@@ -21,14 +29,6 @@ class ForeignKey extends BaseModel {
 
   public function setName($name) {
       $this->name = $name;
-  }
-
-  public function getType() {
-      return $this->type;
-  }
-
-  public function setType($type) {
-      $this->type = $type;
   }
 
 
