@@ -55,6 +55,26 @@
     border-radius: 5px;
 }
 
+.cm-container form label {
+    display: block;
+}
+
+.cm-container form .concepts-bottom-buttons-container input {
+    display: inline-block;
+    width: 50px;
+    margin-left: 5px;
+}
+
+.cm-container form .concepts-bottom-buttons-container input:first-child {
+    margin-left: 13px;
+}
+
+.cm-container form input.alignment-button {
+    display: block;
+    width: 90%;
+    margin: auto;
+}
+
 /* This is the tag we are using to pass JavaScript along with the HTML
  * Do not display it, it's there for JS, not for you, human being!
  */

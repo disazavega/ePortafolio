@@ -37,7 +37,7 @@
         </div>
     </div>
 </div>
-<div class='concept-materializer-container gui-folding-block'>
+<div class='cm-container gui-folding-block'>
     <h2 class='gui-folding-block-title'>Concept Materializer</h2>
     <div class='gui-folding-block-content' >
         <h3>Concepts</h3>
@@ -49,7 +49,7 @@
                 <input type='button' name='action' value='Edit' />
                 <input type='button' name='action' value='Delete' />
             </div>
-            <input type='button' name='action' value='alignment' class'alignment-button' />
+            <input type='button' name='action' value='alignment' class='alignment-button' />
         </form>
     </div>
 </div>
