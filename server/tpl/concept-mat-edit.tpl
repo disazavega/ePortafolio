@@ -9,10 +9,9 @@
 
 <h3>Concept</h3>
 <div class='cm-edit-list-container'>
-    <label><input type='radio' name='materialized_concept' value='1' />Thing</label>
-    <label><input type='radio' name='materialized_concept' value='1' />Person</label>
-    <label><input type='radio' name='materialized_concept' value='1' />Personal Addresse</label>
-    <label><input type='radio' name='materialized_concept' value='1' />Travel</label>
+	{foreach $concepts_list as $item}
+	<label><input type='radio' name='materialized_concept' value='{$item.id}' />{$item.name}</label>
+	{/foreach}
 </div>
 
 <div class='cm-edit-bottom-buttons' >
