@@ -43,8 +43,8 @@
     <div class='gui-folding-block-content' >
         <h3>Concepts</h3>
         <form id='cm-choose-form' action='TODO' method='TODO' >
-            <label><input type='radio' name='concept' value='1' />Me - Person</label>
-            <label><input type='radio' name='concept' value='2' />My Address - Personal Address</label>
+            <label><input type='radio' name='cm_id' value='1' />Me - Person</label>
+            <label><input type='radio' name='cm_id' value='2' />My Address - Personal Address</label>
             <div class='concepts-bottom-buttons-container'>
                 <input type='button' name='action' value='New' class='new-concept-btn' />
                 <input type='button' name='action' value='Edit' class='edit-concept-btn' />
@@ -79,8 +79,8 @@
                 c = null
             }
             load_url('/concept.php', {
-                'concept': c,
-                'action': 'edit'
+                'cm_id': c,
+                'action': 'edit',
             })
         })
     })
