@@ -83,7 +83,36 @@
                 'action': 'edit',
             })
         })
-    $('.new-concept-btn').click(function (e) {
+
+        $('.delete-concept-btn').click(function (e) {
+            var f = $('#cm-choose-form')
+            var c = f.find('input[type="radio"]:checked')
+            if (c.length) {
+                name = c.eq(0).parent().contents()[1].data /* this is clearly not good code TODO improve that */
+                answer = window.confirm('Are you sure you want to desintegrate the materialized concept "' + name + '"')
+                if (answer) {
+                    $.post(BASE_URL + '/concept.php', {
+                        'action': 'delete',
+                        'cm_id': c.eq(0).attr('value')
+                    },
+                    function (data, txtStatus, jqXHR) {
+                        if (data === 'OK') {
+                            load_url('/home.php', null)
+                        } else {
+                            /* TODO: Error handling? */
+                            alert("Error, server responded: " + data)
+                        }
+                    })
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        })
+
+
+        $('.new-concept-btn').click(function (e) {
             load_url('/concept.php', {
                 'action': 'new'
             })

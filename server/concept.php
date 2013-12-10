@@ -85,6 +85,16 @@ if ($_POST['action'] === 'new') {
 	} else {
 		echo 'OK';
 	}
+} else if ($_POST['action'] === 'delete') { // "create" is the submit action of "new"
+	// TODO: Use the services to actually delete the materialized concept
+	$cm_id = intval($_POST['cm_id']);
+
+	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:
+	if ($cm_id !== 2) {
+		echo 'Error test message!';
+	} else {
+		echo 'OK';
+	}
 }
 
 ?>
