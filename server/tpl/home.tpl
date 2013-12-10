@@ -83,5 +83,10 @@
                 'action': 'edit',
             })
         })
+    $('.new-concept-btn').click(function (e) {
+            load_url('/concept.php', {
+                'action': 'new'
+            })
+        })
     })
 </scripttoload>

@@ -74,6 +74,17 @@ if ($_POST['action'] === 'new') {
 	} else {
 		echo 'OK';
 	}
+} else if ($_POST['action'] === 'create') { // "create" is the submit action of "new"
+	// TODO: Use the services to actually create the materialized concept
+	$concept_id = intval($_POST['materialized_concept']);
+	$cm_name = intval($_POST['cm_name']);
+
+	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:
+	if ($concept_id !== 2) {
+		echo 'Error test message!';
+	} else {
+		echo 'OK';
+	}
 }
 
 ?>

@@ -17,7 +17,7 @@
 </div>
 
 <div class='cm-edit-bottom-buttons' >
-    <input type="submit" class='cancel-button' value='Cancel' />
+    <input type='reset' class='cancel-button' value='Cancel' />
     <input type='submit' class='submit-button' value='Save' />
 </div>
 
