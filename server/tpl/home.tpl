@@ -2,7 +2,7 @@
 
 <div class="autocomplete-container gui-folding-block" >
     <h2 class='gui-folding-block-title'>Autocomplete</h2>
-    <div class='gui-folding-block-content gui-init-unfolded' >
+    <div class='gui-folding-block-content' >
         <div class='gui-subblock gui-halfblock'> 
             <h2 class=''>Syntactic analysis</h2>
 
@@ -40,7 +40,7 @@
 </div>
 <div class='cm-container gui-folding-block'>
     <h2 class='gui-folding-block-title'>Concept Materializer</h2>
-    <div class='gui-folding-block-content' >
+    <div class='gui-folding-block-content gui-init-unfolded' >
         <h3>Concepts</h3>
         <form id='cm-choose-form' action='TODO' method='TODO' >
             <label><input type='radio' name='cm_id' value='1' />Me - Person</label>
