@@ -1,4 +1,5 @@
 <link href='{$BASE_URL}/res/css/home.css' rel='stylesheet' />
+
 <div class="autocomplete-container gui-folding-block" >
     <h2 class='gui-folding-block-title'>Autocomplete</h2>
     <div class='gui-folding-block-content gui-init-unfolded' >
@@ -41,13 +42,13 @@
     <h2 class='gui-folding-block-title'>Concept Materializer</h2>
     <div class='gui-folding-block-content' >
         <h3>Concepts</h3>
-        <form action='TOOD' method='TODO' >
+        <form id='cm-choose-form' action='TODO' method='TODO' >
             <label><input type='radio' name='concept' value='1' />Me - Person</label>
-            <label><input type='radio' name='concept' value='1' />My Address - Personal Address</label>
+            <label><input type='radio' name='concept' value='2' />My Address - Personal Address</label>
             <div class='concepts-bottom-buttons-container'>
-                <input type='button' name='action' value='New' />
-                <input type='button' name='action' value='Edit' />
-                <input type='button' name='action' value='Delete' />
+                <input type='button' name='action' value='New' class='new-concept-btn' />
+                <input type='button' name='action' value='Edit' class='edit-concept-btn' />
+                <input type='button' name='action' value='Delete' class='delete-concept-btn' />
             </div>
             <input type='button' name='action' value='alignment' class='alignment-button' />
         </form>
@@ -55,18 +56,32 @@
 </div>
 <scripttoload>
     $(document).ready(function () {
+        /* Sliding up/down tabs code */
         $('.autocomplete-history dt').click(function (e) {
             $(this).next('dd').slideToggle('fast'); 
         })
-        // At the beginning, fold everything except the one noted as not folder at the beginning:
+        /* At the beginning, fold everything except the one noted as not folder at the beginning: */
         $('.gui-folding-block-content').toggle()
         var unfolded = $('.gui-init-unfolded')
         unfolded.slideDown('fast')
         $('.gui-folding-block .gui-folding-block-title').click(function () {
-                unfolded.slideUp('slow')
+                unfolded.slideUp('fast')
                 var toBeUnfolded = $(this).parent().find('.gui-folding-block-content')
-                toBeUnfolded.slideDown('slow')
+                toBeUnfolded.slideDown('fast')
                 unfolded = toBeUnfolded
             })
+        $('.edit-concept-btn').click(function (e) {
+            var f = $('#cm-choose-form')
+            var c = f.find('input[type="radio"]:checked')
+            if (c.length) {
+                c = c.eq(0).attr('value')
+            } else {
+                c = null
+            }
+            load_url('/concept.php', {
+                'concept': c,
+                'action': 'edit'
+            })
+        })
     })
 </scripttoload>

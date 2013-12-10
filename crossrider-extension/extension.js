@@ -8,11 +8,12 @@ DOM_BUTTON_ELEM.src = "https://cdn4.iconfinder.com/data/icons/brightmix/128/mono
 DOM_BUTTON_ELEM.width = 20;
 DOM_BUTTON_ELEM.height = 20;
 MARGIN_RIGHT = 5;
+SERVER_BASE_URL = 'http://127.0.0.1:8080'
 
 appAPI.ready(function($) {
     var focusedField = null;
-    var load_url = function (url, data, callback) {
-        GUI_CONTAINER.load(url, data, function () {
+    var load_url = function (relative_url, data, callback) {
+        GUI_CONTAINER.load(SERVER_BASE_URL + relative_url, data, function () {
             var to_eval = GUI_CONTAINER.find('scripttoload')
             if (to_eval.length) {
                 //alert("We are going to evaluate:" + to_eval.get(0).innerHTML)
@@ -22,7 +23,7 @@ appAPI.ready(function($) {
     };
     var GUI_CONTAINER = $(document.createElement("div"))
     GUI_CONTAINER.attr({id: 'GUIContainer'})
-    GUI_CONTAINER.css({display: 'none', backgroundColor: 'red', width: '100px', height: '100px'})
+    GUI_CONTAINER.css({display: 'none', border: "1px solid black", backgroundColor: 'white'})
     var hideContainer = function (e) {
         GUI_CONTAINER.css("display", "none")
         //$(e).unbind("focusout", hideContainerFocusOut)
@@ -49,10 +50,10 @@ appAPI.ready(function($) {
             left: o.left +  + evt.currentTarget.height,
             display: 'block',
             width: '190px',
-            maxHeight: '350px',
+            maxHeight: '450px',
             padding: '5px'
         })
-        load_url("http://127.0.0.1:8080/home.php")
+        load_url("/home.php")
         if (focusedField) {
             setTimeout(function () {
                 $(document).click(focusThisOut);
@@ -124,4 +125,3 @@ appAPI.ready(function($) {
     //});
 
 });
-
