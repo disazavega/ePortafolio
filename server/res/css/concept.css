@@ -1,8 +1,8 @@
-.cm-edit-list-container {
+.edit-list-container {
 	border: 1px solid black;
 	padding: 2px;
 }
 
-.cm-edit-list-container label {
+.edit-list-container label {
 	display:block;
 }

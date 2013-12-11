@@ -5,20 +5,20 @@
 <form class='cm-new-form'>
 	<input type='hidden' name='action' value='create'>
 
-<label for='concept-name' >Name</label>
-<input type='text' id='concept-name' name="cm_name" value='' />
+	<label for='concept-name' >Name</label>
+	<input type='text' id='concept-name' name="cm_name" value='' />
 
-<h3>Concept</h3>
-<div class='cm-edit-list-container'>
-	{foreach $concepts_list as $item}
-	<label><input type='radio' name='materialized_concept' value='{$item.id}' />{$item.name}</label>
-	{/foreach}
-</div>
+	<h3>Concept</h3>
+	<div class='cm-edit-list-container'>
+		{foreach $concepts_list as $item}
+		<label><input type='radio' name='materialized_concept' value='{$item.id}' />{$item.name}</label>
+		{/foreach}
+	</div>
 
-<div class='cm-edit-bottom-buttons' >
-    <input type='reset' class='cancel-button' value='Cancel' />
-    <input type='submit' class='submit-button' value='Save' />
-</div>
+	<div class='cm-edit-bottom-buttons' >
+	    <input type='reset' class='cancel-button' value='Cancel' />
+	    <input type='submit' class='submit-button' value='Save' />
+	</div>
 
 </form>
 

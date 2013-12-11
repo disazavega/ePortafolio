@@ -56,6 +56,10 @@
 </div>
 <scripttoload>
     $(document).ready(function () {
+        var get_checked_input = function() {
+            var f = $('#cm-choose-form')
+            return f.find('input[type="radio"]:checked')
+        }
         /* Sliding up/down tabs code */
         $('.autocomplete-history dt').click(function (e) {
             $(this).next('dd').slideToggle('fast'); 
@@ -70,23 +74,20 @@
                 toBeUnfolded.slideDown('fast')
                 unfolded = toBeUnfolded
             })
+        /* --------- Buttons handlers ------- */
         $('.edit-concept-btn').click(function (e) {
-            var f = $('#cm-choose-form')
-            var c = f.find('input[type="radio"]:checked')
+            var c = get_checked_input()
             if (c.length) {
                 c = c.eq(0).attr('value')
-            } else {
-                c = null
+                load_url('/concept.php', {
+                    'cm_id': c,
+                    'action': 'edit',
+                })
             }
-            load_url('/concept.php', {
-                'cm_id': c,
-                'action': 'edit',
-            })
         })
 
         $('.delete-concept-btn').click(function (e) {
-            var f = $('#cm-choose-form')
-            var c = f.find('input[type="radio"]:checked')
+            var c = get_checked_input()
             if (c.length) {
                 name = c.eq(0).parent().contents()[1].data /* this is clearly not good code TODO improve that */
                 answer = window.confirm('Are you sure you want to desintegrate the materialized concept "' + name + '"')
@@ -117,5 +118,18 @@
                 'action': 'new'
             })
         })
+
+        $('.alignment-button').click(function (e) {
+            var c = get_checked_input()
+            if (c.length) {
+                c = c.eq(0).attr('value')
+                load_url('/alignment.php', {
+                    'cm_id': c,
+                    'action': 'list',
+                })
+            }
+        })
+
+
     })
 </scripttoload>

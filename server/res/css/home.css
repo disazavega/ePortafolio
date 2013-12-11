@@ -34,6 +34,8 @@
 #GUIContainer {
     font-size: 0.9em;
     overflow: hidden;
+    width: 190px;
+    max-height: 450px;
 }
 
 .gui-subblock {

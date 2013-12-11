@@ -10,7 +10,7 @@
 <input type='text' id='concept-name' name='cm_name' value='{$cm.name}' />
 
 <h3>Concept</h3>
-<div class='cm-edit-list-container'>
+<div class='cm-edit-list-container edit-list-container'>
 	{foreach $concepts_list as $item}
 	<label><input type='radio' name='materialized_concept' checked='{$item.checked}' value='{$item.id}' />{$item.name}</label>
 	{/foreach}
