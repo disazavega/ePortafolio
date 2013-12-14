@@ -1,6 +1,10 @@
 <?php
 
 include('smarty/Smarty.class.php');
+include('services.php');
+
+
+$_POST['action'] = 'new';
 
 function sanitize($string)
 {
@@ -8,6 +12,14 @@ function sanitize($string)
 }
 
 if ($_POST['action'] === 'new') {
+
+	$service = new Services();
+	$concepts = $service->ListConcepts();
+	echo '<pre>';
+	var_dump($concepts);
+	echo '</pre>';
+	
+
 	// create object
 	$smarty = new Smarty;
 
@@ -21,12 +33,18 @@ if ($_POST['action'] === 'new') {
 	$list = array();
 
 	// TODO Replace this for loop by a for loop on the Services' return value...
-	for ($i=1; $i < 5; $i++) { 
-		$list[] = array(
-			'id' => $i,
-			'name' => "DummyName{$i}"
-		);
-	}
+	foreach ($concepts as $concept) {
+	 	$list[] = array(
+	 			'id' => $concept->id,
+	 			'name' => $concept->name
+	 		);
+	 } 
+	// for ($i=1; $i < 5; $i++) { 
+	// 	$list[] = array(
+	// 		'id' => $i,
+	// 		'name' => "DummyName{$i}"
+	// 	);
+	// }
 
 	$smarty->assign('concepts_list', $list);
 

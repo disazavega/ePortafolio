@@ -1,5 +1,3 @@
-<br/>Retrieving concepts... <br/>
-
 <?php
 
 include_once(__DIR__ . '/model/modelMapper.php');
@@ -207,6 +205,7 @@ class Services {
     }
 }
 
+/*
 $s = new ConceptMaterialized();
 //Testing S0101:
 $tst = $s->ListMaterializedConceptsForm(2);
@@ -243,7 +242,7 @@ print_r($s->ListAlignmentsMC(9));
 /*echo "<br/>Testing Attributes query function:";
 print_r($s->ListAttributesConcept(6));
 $s->ListAttributesConcept(9);*/
-
+/*
 //Testing CreateAlignment
 $s->CreateAlignment(104,105,106);
 
@@ -262,7 +261,7 @@ print_r($s->ListConceptSchemas(1));
 //Testing CreateSchemaEmpty
 /*$s->CreateSchemaEmpty("schema_4", "andrei");
 echo "<br/>Created new schema!";*/
-
+/*
 //Testing CreateSchemaEmpty
 $s->UpdateSchema(4,"new_schema_4", "andrei_02");
 echo "<br/>Updated schema!";
