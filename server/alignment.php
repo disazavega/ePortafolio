@@ -62,7 +62,7 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 	// display it
 	$smarty->display('tpl/alignment-edit.tpl');
 
-} else if ($_POST['action'] === 'update' && is_numeric($_POST['alignment_id'] && is_numeric($_POST['attribute_id']) && is_numeric($_POST['field_id'])) {
+} else if ($_POST['action'] === 'update' && is_numeric($_POST['alignment_id'] && is_numeric($_POST['attribute_id']) && is_numeric($_POST['field_id']))) {
 	// TODO: Use the services to update the information about the materialized concept
 	$alignment_id = intval($_POST['alignment_id']);
 	$attr_id = intval($_POST['attribute_id']);

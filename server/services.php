@@ -49,6 +49,10 @@ class Services {
 	return $this->conceptMaterializedMapper->save($temp);
     }
 
+    //Services definition : S0302
+    function RecoverMaterializedConcept($id){
+        return $this->conceptMaterializedMapper->load($id);
+    }
 
     //Services definition: S0401
     function UnMaterializeConcept($id) {

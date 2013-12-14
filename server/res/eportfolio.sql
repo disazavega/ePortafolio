@@ -115,24 +115,24 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `eportfolio`.`concetpMaterialized`
+-- Table `eportfolio`.`conceptMaterialized`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eportfolio`.`concetpMaterialized` ;
+DROP TABLE IF EXISTS `eportfolio`.`conceptMaterialized` ;
 
-CREATE  TABLE IF NOT EXISTS `eportfolio`.`concetpMaterialized` (
+CREATE  TABLE IF NOT EXISTS `eportfolio`.`conceptMaterialized` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `idForm` VARCHAR(250) NOT NULL ,
   `idConcept` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_concetpMaterialized_form1_idx` (`idForm` ASC) ,
-  INDEX `fk_concetpMaterialized_concept1_idx` (`idConcept` ASC) ,
-  CONSTRAINT `fk_concetpMaterialized_form1`
+  INDEX `fk_conceptMaterialized_form1_idx` (`idForm` ASC) ,
+  INDEX `fk_conceptMaterialized_concept1_idx` (`idConcept` ASC) ,
+  CONSTRAINT `fk_conceptMaterialized_form1`
     FOREIGN KEY (`idForm` )
     REFERENCES `eportfolio`.`form` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_concetpMaterialized_concept1`
+  CONSTRAINT `fk_conceptMaterialized_concept1`
     FOREIGN KEY (`idConcept` )
     REFERENCES `eportfolio`.`concept` (`id` )
     ON DELETE NO ACTION
