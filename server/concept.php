@@ -3,10 +3,6 @@
 include('smarty/Smarty.class.php');
 include('services.php');
 
-// Values for the tests
-$_POST['action'] = 'edit';
-$_POST['cm_id'] = '1';
-
 function sanitize($string)
 {
 	return str_replace("'", "\'", $string);
@@ -49,19 +45,13 @@ if ($_POST['action'] === 'new') {
 // GUI for the conceptMaterialized update
 else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
 
-        // Call services
-        $service = new Services();
+    // Call services
+    $service = new Services();
 	$concepts = $service->ListConcepts();
-//      echo '<pre>';
-//	var_dump($concepts);
-//      echo '</pre>';
     	
-        $matConcept = $service->RecoverMaterializedConcept($_POST['cm_id']);
-//	echo '<pre>';
-//	var_dump($matConcept);
-//      echo '</pre>';
+    $matConcept = $service->RecoverMaterializedConcept($_POST['cm_id']);
         
-        // Create object
+    // Create object
 	$smarty = new Smarty;
 
 	$id = intval($_POST['cm_id']);
@@ -74,13 +64,13 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
 
 	$list = array();
 
-        // Assign values
+    // Assign values
 	foreach ($concepts as $concept) {
 	 	$list[] = array(
-	 			'id' => $concept->id,
-	 			'name' => $concept->name,
-                                'checked' => ($concept->id === $matConcept->idConcept ) ? "checked" : ""
-	 		);
+ 			'id' => $concept->id,
+ 			'name' => $concept->name,
+            'checked' => ($concept->id === $matConcept->idConcept ) ? "checked" : ""
+ 		);
 	 } 
 
 	$smarty->assign('concepts_list', $list);
