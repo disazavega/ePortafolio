@@ -2,7 +2,7 @@
 return array(
   'dbhost' => 'localhost',
   'db' => 'eportfolio',
-  'username' => 'root',
-  'password'=> 'root'
+  'username' => 'eportfolio',
+  'password'=> 'eportfolio'
 );
 ?>

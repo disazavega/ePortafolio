@@ -11,7 +11,7 @@
 	<h3>Concept</h3>
 	<div class='cm-edit-list-container'>
 		{foreach $concepts_list as $item}
-		<label><input type='radio' name='materialized_concept' value='{$item.id}' />{$item.name}</label>
+		<label><input type='radio' name='concept' value='{$item.id}' />{$item.name}</label>
 		{/foreach}
 	</div>
 
