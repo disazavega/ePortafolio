@@ -14,11 +14,13 @@ USE `eportfolio` ;
 DROP TABLE IF EXISTS `eportfolio`.`form` ;
 
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`form` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `hash` VARCHAR(255) NOT NULL,
   `name` VARCHAR(45) NULL ,
   `url` VARCHAR(45) NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+  PRIMARY KEY (`id`),
+  CONSTRAINT `form_hash_unique` UNIQUE INDEX (`hash`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -30,10 +32,9 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`field` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `type` VARCHAR(45) NULL ,
-  `idForm` VARCHAR(250) NOT NULL ,
+  `idForm` INT NOT NULL,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_field_form1_idx` (`idForm` ASC) ,
-  CONSTRAINT `fk_field_form1`
+  CONSTRAINT `fk_field_formId`
     FOREIGN KEY (`idForm` )
     REFERENCES `eportfolio`.`form` (`id` )
     ON DELETE NO ACTION
@@ -122,7 +123,7 @@ DROP TABLE IF EXISTS `eportfolio`.`conceptMaterialized` ;
 CREATE  TABLE IF NOT EXISTS `eportfolio`.`conceptMaterialized` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
-  `idForm` VARCHAR(250) NOT NULL ,
+  `idForm` INT NOT NULL,
   `idConcept` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_conceptMaterialized_form1_idx` (`idForm` ASC) ,
