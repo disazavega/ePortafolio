@@ -12,7 +12,7 @@
 <h3>Concept</h3>
 <div class='cm-edit-list-container edit-list-container'>
 	{foreach $concepts_list as $item}
-	<label><input type='radio' name='concept' checked='{$item.checked}' value='{$item.id}' />{$item.name}</label>
+	<label><input type='radio' name='concept' {$item.checked} value='{$item.id}' />{$item.name}</label>
 	{/foreach}
 </div>
 

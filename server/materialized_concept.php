@@ -69,7 +69,7 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
 	 	$list[] = array(
  			'id' => $concept->id,
  			'name' => $concept->name,
-            'checked' => ($concept->id === $matConcept->idConcept ) ? "checked" : ""
+            'checked' => ($concept->id === $matConcept->idConcept) ? "checked='checked'" : ""
  		);
 	 } 
 
