@@ -84,17 +84,17 @@ class ModelMapper {
      * else insert
     */
     $properties = array_keys(get_class_vars(get_class($model)));
+
     if(isset($model->id)) {
       $innerQuery = "";
       foreach($properties as $property) {
-	if(isset($property) && $property !== "_table") {
-	  $innerQuery .= " `{$property}` = \"".$model->$property."\",";
-	}
+        if(isset($property) && $property !== "_table" && $property !== 'id') {
+      	  $innerQuery .= " `{$property}` = \"" . $this->dbHelper->escape($model->$property) . "\",";
+        }
       }
-      $innerQuery = substr($innerQuery,0,strlen($innerQuery)-1);
+      $innerQuery = substr($innerQuery, 0, strlen($innerQuery)-1);
       
-      $whereQuery = " WHERE `id` = {$model->id}";
-      /*UPDATE `champ` SET `name` = "Shh" where `id` = 1*/
+      $whereQuery = " WHERE `id` = " . intval($model->id);
       $query = "UPDATE `{$model->_table}` SET " . $innerQuery . $whereQuery;
       $this->dbHelper->insertUpdateQuery($query);
       return $model->id;
@@ -108,7 +108,7 @@ class ModelMapper {
 	  if(is_numeric($model->$property)) {
 	    array_push($valuesQueryArr, $model->$property);
 	  } else {
-	    array_push($valuesQueryArr, "\"".$model->$property."\"");
+	    array_push($valuesQueryArr, "\"" . $this->dbHelper->escape($model->$property) . "\"");
 	  }
 	}
       }
@@ -126,16 +126,16 @@ class ModelMapper {
    * unsets the object
    */
   function delete(&$model) {
-    $id = $model->id;
+    $id = intval($model->id);
     $query = "DELETE FROM `{$model->_table}` WHERE `id` = " . $id;
     $this->dbHelper->deleteQuery($query);
     $model = NULL;
   }
   
   private function populateModel(&$model, $dbRow) {
-    foreach(array_keys($dbRow) as $property) {
-      if(property_exists($model, $property)) {
-	$model->$property = $dbRow[$property];
+    foreach ($dbRow as $property => $value) {
+      if (property_exists(get_class($model), $property)) {
+        $model->$property = $value;
       }
     }
   }
