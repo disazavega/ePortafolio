@@ -21,7 +21,7 @@ class Services {
     //requires reimplementation for the link hashing
     function ListMaterializedConceptsForm($formId) {
         $materializedConcepts  = array();
-	$materializedConcepts = $this->conceptMaterializedMapper->loadBy("formId", $formId);
+	$materializedConcepts = $this->conceptMaterializedMapper->loadBy("idForm", $formId);
         return $materializedConcepts;
     }
 
