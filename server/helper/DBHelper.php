@@ -20,6 +20,11 @@ class DBHelper {
       return $this->dbHelper;
   }
 
+  public function escape($string)
+  {
+    return mysqli_escape_string($string);
+  }
+
   public function selectQuery($query) {
     $result =  $this->mysqli->query($query);
     $response = array();

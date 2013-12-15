@@ -19,6 +19,8 @@ class ModelMapper {
    */
   function load($id) {
     $model = new $this->modelClass;
+
+    $id = intval($id); // Enforcing integer, avoiding SQL Injection at the same time
     
     $query = "SELECT * FROM `{$model->_table}` WHERE `id` = " . $id;
     $results = $this->dbHelper->selectQuery($query);
@@ -54,7 +56,7 @@ class ModelMapper {
    */
   function loadBy($field, $value) {
     if(!is_numeric($value)) {
-      $value="\"{$value}\"";
+      $value = "'" . $this->$dbHelper->escape($value) . "'"; // Avoiding SQL Injection
     }
     $modelArr = array();
     $query = "SELECT * FROM `{$this->_table}` WHERE `{$field}` = ". $value;
