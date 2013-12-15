@@ -37,7 +37,7 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`field` (
   CONSTRAINT `fk_field_formId`
     FOREIGN KEY (`idForm` )
     REFERENCES `eportfolio`.`form` (`id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -57,7 +57,7 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`fieldInstance` (
   CONSTRAINT `fk_field_instance_field`
     FOREIGN KEY (`idField` )
     REFERENCES `eportfolio`.`field` (`id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -90,7 +90,7 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`concept` (
   CONSTRAINT `fk_table_schema1`
     FOREIGN KEY (`idSchema` )
     REFERENCES `eportfolio`.`schema` (`id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -110,7 +110,7 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`attribute` (
   CONSTRAINT `fk_attribute_concept1`
     FOREIGN KEY (`idConcept` )
     REFERENCES `eportfolio`.`concept` (`id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -136,7 +136,7 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`conceptMaterialized` (
   CONSTRAINT `fk_conceptMaterialized_concept1`
     FOREIGN KEY (`idConcept` )
     REFERENCES `eportfolio`.`concept` (`id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -158,17 +158,17 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`alignment` (
   CONSTRAINT `fk_alignment_field1`
     FOREIGN KEY (`idField` )
     REFERENCES `eportfolio`.`field` (`id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_alignment_attribute1`
     FOREIGN KEY (`idAttribute` )
     REFERENCES `eportfolio`.`attribute` (`id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_alignment_conceptMaterialized1`
     FOREIGN KEY (`idConceptMaterialized` )
     REFERENCES `eportfolio`.`conceptMaterialized` (`id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -188,7 +188,7 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`key` (
   CONSTRAINT `fk_key_concept1`
     FOREIGN KEY (`idConcept` )
     REFERENCES `eportfolio`.`concept` (`id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -208,7 +208,7 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`foreignKey` (
   CONSTRAINT `fk_foreignKey_concept1`
     FOREIGN KEY (`idConcept` )
     REFERENCES `eportfolio`.`concept` (`id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
