@@ -128,8 +128,13 @@ class ModelMapper {
   function delete(&$model) {
     $id = intval($model->id);
     $query = "DELETE FROM `{$model->_table}` WHERE `id` = " . $id;
-    $this->dbHelper->deleteQuery($query);
-    $model = NULL;
+    $res = $this->dbHelper->deleteQuery($query);
+    if ($res) {
+      $model = NULL;
+      return true;
+    } else {
+      return false;
+    }
   }
   
   private function populateModel(&$model, $dbRow) {

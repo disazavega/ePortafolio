@@ -54,9 +54,8 @@ class Services {
 
     //Services definition: S0401
     function UnMaterializeConcept($id) {
-	$temp = $this->conceptMaterializedMapper->load($id);
-	$this->conceptMaterializedMapper->delete($temp);
-        
+    	$temp = $this->conceptMaterializedMapper->load($id);
+    	return $this->conceptMaterializedMapper->delete($temp);
     }
 
     //Services definition: S0501

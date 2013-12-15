@@ -34,8 +34,10 @@ class DBHelper {
     $response = array();
     if ($result) {
       while ($row = mysqli_fetch_assoc($result)) {
-	array_push($response, $row);
+        array_push($response, $row);
       }
+    } else {
+      return false;
     }
     return $response;
   }
@@ -47,13 +49,17 @@ class DBHelper {
   }
   
   public function deleteQuery($query) {
-    $this->execute_query($query);
+    return $this->execute_query($query);
   }
 
   private function execute_query($query)
   {
-    $this->log_query($query);
-    return $this->mysqli->query($query);
+    $res = $this->log_query($query);
+    $res = $this->mysqli->query($query);
+    if (!$res) {
+      $this->logger->logDebug("Query execution did not succeed, error: " . $this->mysqli->error);
+    }
+    return $res;
   }
 
   private function log_query($query) {
