@@ -5,9 +5,9 @@ include('services.php');
 include('common_functions.php');
 
 // Values for the tests
-$_POST['action'] = 'update';
-$_POST['cm_id'] = '1';
-$_POST['alignment_id'] = '4';
+$_POST['action'] = 'edit';
+$_POST['cm_id'] = '2';
+$_POST['alignment_id'] = '2';
 $_POST['field_id'] = '2';
 $_POST['attribute_id'] = '3';
 
@@ -31,12 +31,10 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
 	$smarty->assign('cm', array(
 		'id' => $id, 
-                'name' => sanitize($matConcept->name)
+                'name' => sanitize($current_concept_name)
 	));
         
 	$list = array();
-      //  $field = new Field();
-      //  $attribute = new Attribute();
         
         // Assign values
         foreach ($alignments as $alignment) {
@@ -53,34 +51,56 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 	// display it - Nothing displayed...
 	$smarty->display('tpl/alignment-list.tpl');
 } else if ($_POST['action'] === 'edit' && is_numeric($_POST['alignment_id'])) {
+    
+    // Call services
+    $service = new Services();
+    
+    
 	// create object
 	$smarty = new Smarty;
 
-	$id = intval($_POST['alignment_id']);
+	$alignment_id = intval($_POST['alignment_id']);
+        $cm_id = intval($_POST['cm_id']);
+        // TO DO : Add the form id
+        $form_id = intval("1");
 
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
 	$smarty->assign('cm', array(
-		'id' => $id,
+		'id' => $alignment_id,
 	    'name' => sanitize($current_concept_name)
 	));
 
-	$list = array();
-	$list2 = array();
+	$list_fields = array();
+	$list_attributes = array();
+        
+        //Load
+        $this_alignment = $service->RecoverAlignment($alignment_id);
+        $attributes = $service->ListAttributesConceptMaterialized($cm_id);
+        $fields = $service->ListFieldsForm($form_id);
+//      echo '<pre>';
+//      var_dump($fields);
+//      echo '</pre>';
+        
 
-	// TODO Replace this for loop by a for loop on the Services' return value...
-	// listing the attributes and fields for the current alignment
-	for ($i=1; $i < 5; $i++) { 
-		$list[] = array(
-			'id' => $i,
-			'name' => "DummyAttribute{$i}"
-		);
-		$list2[] = array(
-			'id' => $i,
-			'name' => "DummyField{$i}"
-		);
-	}
-	$smarty->assign('attributes_list', $list);
-	$smarty->assign('fields_list', $list2);
+	//Assignation field
+        foreach ($fields as $field) {
+            $list_fields[] = array(
+		'id' => $field->id,
+		'name' => sanitize($field->name),
+                'checked' => ($field->id === $this_alignment->idField) ? "checked='checked'" : ""
+            );
+        }
+        
+        //Assignation attributes
+        foreach ($attributes as $attribute) {
+            $list_attributes[] = array(
+                'id' => $attribute->id,
+                'name' => sanitize($attribute->name),
+                'checked' => ($attribute->id === $this_alignment->idAttribute) ? "checked='checked'" : ""
+            );
+        }
+	$smarty->assign('attributes_list', $list_attributes);
+	$smarty->assign('fields_list', $list_fields);
 
 	// display it
 	$smarty->display('tpl/alignment-edit.tpl');

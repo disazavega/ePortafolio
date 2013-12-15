@@ -1,11 +1,17 @@
 <?php
 
 include_once(__DIR__ . '/model/modelMapper.php');
+
 include_once(__DIR__ . '/model/alignment.php');
 include_once(__DIR__ . '/model/attribute.php');
 include_once(__DIR__ . '/model/concept.php');
-include_once(__DIR__ . '/model/schema.php');
 include_once(__DIR__ . '/model/conceptMaterialized.php');
+include_once(__DIR__ . '/model/field.php');
+include_once(__DIR__ . '/model/fieldInstance.php');
+include_once(__DIR__ . '/model/foreignKey.php');
+include_once(__DIR__ . '/model/form.php');
+include_once(__DIR__ . '/model/key.php');
+include_once(__DIR__ . '/model/schema.php');
 
 class Services {
 
@@ -76,12 +82,17 @@ class Services {
         $fieldMapper = new ModelMapper(get_class(new Field()));
         return $fieldMapper->load($id);
     }
+    
+    //Services definition: S0601
+    function ListFieldsForm($idForm){
+        $fieldsMapper = new ModelMapper(get_class(new Field()));
+        return $fieldsMapper->loadBy("idForm", $idForm);
+    }
 
     //Services definition: S0602
-    function ListAttributesConcept($idMC){
+    function ListAttributesConceptMaterialized($idMC){
 	$attributesMapper = new ModelMapper(get_class(new Attribute()));
-	$attributesList = $attributesMapper->loadBy("tableId", $this->conceptMaterializedMapper->load($idMC)->tableId);
-	return $attributesList;
+	return $attributesMapper->loadBy("idConcept", $this->conceptMaterializedMapper->load($idMC)->idConcept);
     }
 
     //Services definition: S0603
@@ -101,6 +112,12 @@ class Services {
 	$temp->idField = $idField;
 	$temp->idAttribute = $idAttribute;
 	return $alignmentMapper->save($temp);
+    }
+    
+    //Services definition: S0702
+    function RecoverAlignment($idAligment){
+        $alignmentMapper = new ModelMapper(get_class(new Alignment()));
+        return $alignmentMapper->load($idAligment);
     }
 
     //Services definition: S0801
