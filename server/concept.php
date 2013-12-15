@@ -87,10 +87,7 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
 
 	// display it
 	$smarty->display('tpl/concept-mat-edit.tpl');
-} 
-
-// What's the difference between edit and update ?????
-else if ($_POST['action'] === 'update' && is_numeric($_POST['cm_id'])) {
+} else if ($_POST['action'] === 'update' && is_numeric($_POST['cm_id'])) { // "update" is the submit action of "edit"
 	// TODO: Use the services to update the information about the materialized concept
 	$id = intval($_POST['cm_id']);
 	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:
@@ -111,7 +108,7 @@ else if ($_POST['action'] === 'update' && is_numeric($_POST['cm_id'])) {
 	} else {
 		echo 'OK';
 	}
-} else if ($_POST['action'] === 'delete') { // "create" is the submit action of "new"
+} else if ($_POST['action'] === 'delete') { 
 	// TODO: Use the services to actually delete the materialized concept
 	$cm_id = intval($_POST['cm_id']);
 
