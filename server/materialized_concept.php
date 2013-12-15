@@ -3,6 +3,14 @@
 include('smarty/Smarty.class.php');
 include('services.php');
 
+//      Test values
+/*      $_POST['action'] = 'delete';
+        $_POST['cm_id'] = '4';
+        $_POST['concept'] = '2';
+        $_POST['cm_name'] = 'MC Test3';
+ */
+        
+
 function sanitize($string)
 {
 	return str_replace("'", "\'", $string);
@@ -14,9 +22,6 @@ if ($_POST['action'] === 'new') {
         // Call services
 	$service = new Services();
 	$concepts = $service->ListConcepts();
-//	echo '<pre>';
-//	var_dump($concepts);
-//	echo '</pre>';
 	
 	// Create object
 	$smarty = new Smarty;
@@ -78,39 +83,42 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
 	// display it
 	$smarty->display('tpl/concept-mat-edit.tpl');
 } else if ($_POST['action'] === 'update' && is_numeric($_POST['cm_id']) && !empty($_POST['cm_name'])) { // "update" is the submit action of "edit"
-	$s = new Services();
+	$service = new Services();
 
 	$id = intval($_POST['cm_id']);
-	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:
-	$concept = intval($_POST['concept']);
-	$name = $_POST['cm_name'];
+	$concept_id = intval($_POST['concept']);
+	$cm_name = $_POST['cm_name'];
 
-	$res = $s->UpdateMaterializedConcept($id, $name, $concept);
+	$res = $service->UpdateMaterializedConcept($id, $cm_name, $concept_id);
 	if (!$res) {
-		echo 'Error test message!';
+		echo 'Error update MC test message!';
 	} else {
-		echo 'OK';
+		echo 'Update MC OK';
 	}
 } else if ($_POST['action'] === 'create') { // "create" is the submit action of "new"
-	// TODO: Use the services to actually create the materialized concept
-	$concept_id = intval($_POST['concept']);
-	$cm_name = intval($_POST['cm_name']);
+        $service = new Services();
+    
+        $concept_id = intval($_POST['concept']);
+	$cm_name = $_POST['cm_name'];
+        
+        // TODO -  Add the id Form
+        $form_id = intval('1');
 
-	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:
-	if ($concept_id !== 2) {
-		echo 'Error test message!';
+	$res = $service->MaterializeConcept($form_id, $concept_id, $cm_name);
+        if (!$res) {
+		echo 'Error create MC test message!';
 	} else {
-		echo 'OK';
+		echo 'Create MC OK';
 	}
 } else if ($_POST['action'] === 'delete') { 
-	// TODO: Use the services to actually delete the materialized concept
-	$cm_id = intval($_POST['cm_id']);
+	$service = new Services();
+        $cm_id = intval($_POST['cm_id']);
 
-	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:
-	if ($cm_id !== 2) {
-		echo 'Error test message!';
+	$res = $service->UnMaterializeConcept($cm_id);
+        if (! $res) {
+                echo 'Delete MC OK';
 	} else {
-		echo 'OK';
+		echo 'Error delete MC test message!';
 	}
 }
 

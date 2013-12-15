@@ -20,14 +20,12 @@ class Services {
     //Services definition: S0101
     //requires reimplementation for the link hashing
     function ListMaterializedConceptsForm($formId) {
-        $materializedConcepts  = array();
-	$materializedConcepts = $this->conceptMaterializedMapper->loadBy("idForm", $formId);
+        $materializedConcepts  = $this->conceptMaterializedMapper->loadBy("idForm", $formId);
         return $materializedConcepts;
     }
 
     //Services definition: S0201
     function ListConcepts() {
-        $queryConcepts = array();
         $queryConcepts = $this->conceptMapper->loadAll();
         return $queryConcepts;
     }
@@ -58,6 +56,7 @@ class Services {
     function UnMaterializeConcept($id) {
 	$temp = $this->conceptMaterializedMapper->load($id);
 	$this->conceptMaterializedMapper->delete($temp);
+        
     }
 
     //Services definition: S0501

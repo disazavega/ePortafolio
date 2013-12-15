@@ -7,17 +7,22 @@ include('services.php');
 $_POST['action'] = 'new';
 $_POST['cm_id'] = '1';
 
+function sanitize($string)
+{
+	return str_replace("'", "\'", $string);
+}
+
 // GUI for the Alignment main screen
 if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
-
+        
         // Call services
         $service = new Services();
 
 	$matConcept = $service->RecoverMaterializedConcept($_POST['cm_id']);
   	$alignments = $service->ListAlignmentsMC($_POST['cm_id']);
-//      echo '<pre>';
-//      var_dump($alignments);
-//      echo '</pre>';
+      echo '<pre>';
+      var_dump($alignments);
+      echo '</pre>';
         
         // create object
 	$smarty = new Smarty;
@@ -27,17 +32,19 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
 	$smarty->assign('cm', array(
 		'id' => $id, 
-                'name' => $matConcept->name
+                'name' => sanitize($matConcept->name)
 	));
         
 	$list = array();
+      //  $field = new Field();
+      //  $attribute = new Attribute();
         
         // Assign values
         foreach ($alignments as $alignment) {
-            $list[] = array(
+           $list[] = array(
                     'id' => $allignment->id,
-      //            TODO : Recover the field and the attribute name
-                    'name ' => $alignment->idField . " - " . $alignment->idAttribute
+     //             'name' => $aligName
+                    'name' => $allignment->idField
              );
         }
 
