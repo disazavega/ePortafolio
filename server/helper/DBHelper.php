@@ -26,7 +26,7 @@ class DBHelper {
 
   public function escape($string)
   {
-    return mysqli_escape_string($string);
+    return $this->mysqli->real_escape_string($string);
   }
 
   public function selectQuery($query) {
