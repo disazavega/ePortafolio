@@ -84,7 +84,7 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
 	if (!$res) {
 		echo 'Error update MC test message!';
 	} else {
-		echo 'Update MC OK';
+		echo 'OK';
 	}
 } else if ($_POST['action'] === 'create') { // "create" is the submit action of "new"
 	$service = new Services();
@@ -99,17 +99,17 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
 	if (!$res) {
 		echo 'Error create MC test message!';
 	} else {
-		echo 'Create MC OK';
+		echo 'OK';
 	}
 } else if ($_POST['action'] === 'delete') { 
 	$service = new Services();
 	$cm_id = intval($_POST['cm_id']);
 
 	$res = $service->UnMaterializeConcept($cm_id);
-	if (!$res) {
+	if ($res) {
 		echo 'OK';
 	} else {
-		echo 'Error delete MC test message!';
+		echo 'Error delete MC test message! Error is ' . $service->get_error($res);
 	}
 }
 
