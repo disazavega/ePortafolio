@@ -43,8 +43,9 @@
     <div class='gui-folding-block-content gui-init-unfolded' >
         <h3>Concepts</h3>
         <form id='cm-choose-form' action='TODO' method='TODO' >
-            <label><input type='radio' name='cm_id' value='1' />Me - Person</label>
-            <label><input type='radio' name='cm_id' value='2' />My Address - Personal Address</label>
+            {foreach $materialized_concepts_list as $item}
+            <label><input type='radio' name='cm_id' value='{$item.id}' />{$item.name}</label>
+            {/foreach}
             <div class='concepts-bottom-buttons-container'>
                 <input type='button' name='action' value='New' class='new-concept-btn' />
                 <input type='button' name='action' value='Edit' class='edit-concept-btn' />
