@@ -1,33 +1,50 @@
 <?php
 
 include('smarty/Smarty.class.php');
+include('services.php');
 
+// Values for the tests
+$_POST['action'] = 'new';
+$_POST['cm_id'] = '1';
+
+// GUI for the Alignment main screen
 if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
-	
-	// create object
-	$smarty = new Smarty;
 
-	$id = intval($_POST['cm_id']);
+        // Call services
+        $service = new Services();
+
+	$matConcept = $service->RecoverMaterializedConcept($_POST['cm_id']);
+  	$alignments = $service->ListAlignmentsMC($_POST['cm_id']);
+//      echo '<pre>';
+//      var_dump($alignments);
+//      echo '</pre>';
+        
+        // create object
+	$smarty = new Smarty;
+        
+        $id = intval($_POST['cm_id']);
 
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
 	$smarty->assign('cm', array(
 		'id' => $id, 
-	    'name' => sanitize($current_concept_name)
+                'name' => $matConcept->name
 	));
-
+        
 	$list = array();
+        
+        // Assign values
+        foreach ($alignments as $alignment) {
+            $list[] = array(
+                    'id' => $allignment->id,
+      //            TODO : Recover the field and the attribute name
+                    'name ' => $alignment->idField . " - " . $alignment->idAttribute
+             );
+        }
 
-	// TODO Replace this for loop by a for loop on the Services' return value...
-	// listing the alignments for the current materialized concept
-	for ($i=1; $i < 5; $i++) { 
-		$list[] = array(
-			'id' => $i,
-			'name' => "DummyName{$i}"
-		);
-	}
-	$smarty->assign('alignments_list', $list);
+        $smarty->assign('alignments_list', $list);
 
-	// display it
+        echo 'before the display';    
+	// display it - Nothing displayed...
 	$smarty->display('tpl/alignment-list.tpl');
 } else if ($_POST['action'] === 'edit' && is_numeric($_POST['alignment_id'])) {
 	// create object
@@ -75,7 +92,9 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 	}
 
 } else if ($_POST['action'] === 'new' && is_numeric($_POST['cm_id'])) { /* we need the CM id in order to create an alignment, so that we can display the right options... */
-	// create object
+	// Call services
+
+        // create object
 	$smarty = new Smarty;
 
 	$id = intval($_POST['cm_id']);

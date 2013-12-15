@@ -3,7 +3,7 @@
 include('smarty/Smarty.class.php');
 include('services.php');
 
-
+// Values for the tests
 $_POST['action'] = 'edit';
 $_POST['cm_id'] = '1';
 
@@ -12,6 +12,7 @@ function sanitize($string)
 	return str_replace("'", "\'", $string);
 }
 
+// GUI for the materialization (conceptMaterialized creation)
 if ($_POST['action'] === 'new') {
 
         // Call services
@@ -43,7 +44,10 @@ if ($_POST['action'] === 'new') {
 	// display it
 	$smarty->display('tpl/concept-mat-new.tpl');
 
-} else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
+} 
+
+// GUI for the conceptMaterialized update
+else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
 
         // Call services
         $service = new Services();
@@ -83,7 +87,10 @@ if ($_POST['action'] === 'new') {
 
 	// display it
 	$smarty->display('tpl/concept-mat-edit.tpl');
-} else if ($_POST['action'] === 'update' && is_numeric($_POST['cm_id'])) {
+} 
+
+// What's the difference between edit and update ?????
+else if ($_POST['action'] === 'update' && is_numeric($_POST['cm_id'])) {
 	// TODO: Use the services to update the information about the materialized concept
 	$id = intval($_POST['cm_id']);
 	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:

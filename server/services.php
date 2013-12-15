@@ -63,8 +63,20 @@ class Services {
     //Services definition: S0501
     function ListAlignmentsMC($idMC){
 	$alignmentsMapper = new ModelMapper(get_class(new Alignment()));
-	$alignments = $alignmentsMapper->loadBy("conceptMaterializedId", $idMC);    
+	$alignments = $alignmentsMapper->loadBy("idConceptMaterialized", $idMC);    
         return $alignments;
+    }
+    
+    //Services definition : S0502
+    function RecoverAttribute($id){
+        $attributeMapper = new ModelMapper(get_class(new Attribute()));
+        return $attributeMapper->load($id);
+    }
+    
+    //Services definition : S0503
+    function RecoverField($id){
+        $fieldMapper = new ModelMapper(get_class(new Field()));
+        return $fieldMapper->load($id);
     }
 
     //Services definition: S0602
