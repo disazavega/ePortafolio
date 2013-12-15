@@ -2,11 +2,8 @@
 
 include('smarty/Smarty.class.php');
 include('services.php');
+include('common_functions.php');
 
-function sanitize($string)
-{
-	return str_replace("'", "\'", $string);
-}
 
 // GUI for the materialization (conceptMaterialized creation)
 if ($_POST['action'] === 'new') {

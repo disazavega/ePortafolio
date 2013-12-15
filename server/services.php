@@ -88,27 +88,26 @@ class Services {
     function CreateAlignment($idMC, $idField, $idAttribute){
 	$alignmentMapper = new ModelMapper(get_class(new Alignment()));
 	$temp = new Alignment();	
-	$temp->conceptMaterializedId = $idMC;
-	$temp->fieldId = $idField;
-	$temp->attributeId = $idAttribute;
+	$temp->idConceptMaterialized = $idMC;
+	$temp->idField = $idField;
+	$temp->idAttribute = $idAttribute;
+	return $alignmentMapper->save($temp);
+    }
+    
+    //Services definition: S0701
+    function UpdateAlignment($idAligment, $idField, $idAttribute){
+	$alignmentMapper = new ModelMapper(get_class(new Alignment()));
+	$temp = $alignmentMapper->load($idAligment);
+	$temp->idField = $idField;
+	$temp->idAttribute = $idAttribute;
 	return $alignmentMapper->save($temp);
     }
 
     //Services definition: S0801
-    function DeleteAlignment($idMC, $idField, $idAttribute){
+    function DeleteAlignment($id){
 	$alignmentsMapper = new ModelMapper(get_class(new Alignment()));
-	$alignments = $alignmentsMapper->loadBy("conceptMaterializedId",$idMC);
-	if (!empty($alignments)){
-		foreach($alignments as $alignment){
-			if($alignment->fieldId == $idField && $alignment->attributeId == $idAttribute){
-				$alignmentsMapper->delete($alignment);
-			}			
-		}
-	}
-	else
-		echo "No Alignments matching the criteria!";
-	//$this->alignmentsMapper->delete($temp);
-	//return $alignmentsMapper->delete($temp);
+        $temp = $alignmentsMapper->load($id);
+    	return $alignmentsMapper->delete($temp);
     }
 
     //Services definition: S0901
@@ -182,19 +181,8 @@ class Services {
     //Services definition S1201
     function DeleteSchema($idSchema){
 	$schemasMapper = new ModelMapper(get_class(new Schema()));
-	
-        //Load
-        $concepts = $this->conceptMapper->loadBy('idSchema', $idSchema);
-        $tempSchema = $schemasMapper->load($idSchema);
-        
-        //Delete
-        if($concepts != null){
-            foreach ($concepts as $tempConcept) {
-                //delete Concept CASCADE
-                $this->DeleteConcept($tempConcept->id);
-             }
-        }
-        $schemasMapper->delete($tempSchema);
+	$tempSchema = $schemasMapper->load($idSchema);
+        return $schemasMapper->delete($tempSchema);
     }
     
     //Services definition S1301
@@ -205,17 +193,8 @@ class Services {
     
     //Services definition S1501
     function DeleteConcept($idConcept){
-       //Load 
-        $attrMapper = new ModelMapper(get_class(new Attribute()));
-        $attributes = $attrMapper->loadBy('idConcept', $idConcept);
-        //delete attributes CASCADE
-        if($attributes != null){
-            foreach ($attributes as $attribute) {
-                $attrMapper->delete($attribute);
-            }
-        }
-        //Delete Concept
-        $this->conceptMapper->delete($tempConcept);
+       $temp = $this->conceptMapper->load($idConcept);
+    	return $this->conceptMapper->delete($temp);
     }
 }
 

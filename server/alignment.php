@@ -2,15 +2,14 @@
 
 include('smarty/Smarty.class.php');
 include('services.php');
+include('common_functions.php');
 
 // Values for the tests
-$_POST['action'] = 'new';
+$_POST['action'] = 'update';
 $_POST['cm_id'] = '1';
-
-function sanitize($string)
-{
-	return str_replace("'", "\'", $string);
-}
+$_POST['alignment_id'] = '4';
+$_POST['field_id'] = '2';
+$_POST['attribute_id'] = '3';
 
 // GUI for the Alignment main screen
 if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
@@ -86,14 +85,15 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 	// display it
 	$smarty->display('tpl/alignment-edit.tpl');
 
-} else if ($_POST['action'] === 'update' && is_numeric($_POST['alignment_id'] && is_numeric($_POST['attribute_id']) && is_numeric($_POST['field_id']))) {
-	// TODO: Use the services to update the information about the materialized concept
+} else if ($_POST['action'] === 'update' && is_numeric($_POST['alignment_id']) && is_numeric($_POST['attribute_id']) && is_numeric($_POST['field_id'])) {
+	$service = new Services();
 	$alignment_id = intval($_POST['alignment_id']);
 	$attr_id = intval($_POST['attribute_id']);
 	$field_id = intval($_POST['field_id']);
-	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:
-	if ($attr_id !== 2) {
-		echo 'Error test message!';
+	
+        $res = $service->UpdateAlignment($alignment_id, $field_id, $attr_id);
+        if (!$res) {
+		echo 'Error update alignment test message!';
 	} else {
 		echo 'OK';
 	}
@@ -137,25 +137,27 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 	&& is_numeric($_POST['attribute_id']) 
 	&& is_numeric($_POST['field_id'])
 	) {
-	// TODO: Use the services to update the information about the materialized concept
+    $service = new Services();
+    
 	$cm_id = intval($_POST['cm_id']);
 	$attr_id = intval($_POST['attribute_id']);
 	$field_id = intval($_POST['field_id']);
-	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:
-	if ($attr_id !== 2) {
-		echo 'Error test message!';
+	
+        $res = $service->CreateAlignment($cm_id, $field_id, $attr_id);
+        if (!$res) {
+		echo 'Error create alignemnt test message!';
 	} else {
 		echo 'OK';
 	}
 } else if ($_POST['action'] === 'delete') { // "create" is the submit action of "new"
-	// TODO: Use the services to actually delete the materialized concept
-	$alignment_id = intval($_POST['alignment_id']);
-
-	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:
-	if ($alignment_id !== 2) {
-		echo 'Error test message!';
-	} else {
+	$service = new Services();
+        $alignment_id = intval($_POST['alignment_id']);
+        
+        $res = $service->DeleteAlignment($alignment_id);
+        if ($res) {
 		echo 'OK';
+	} else {
+		echo 'Error delete alignment test message! Error is' . $service->get_error($res);
 	}
 }
 
