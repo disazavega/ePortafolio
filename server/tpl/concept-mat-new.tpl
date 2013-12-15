@@ -26,7 +26,7 @@
 $(document).ready(function () {
 	$('.cm-new-form').bind('submit', function (e) {
 		$.ajax({
-			url: SERVER_BASE_URL + '/concept.php',
+			url: SERVER_BASE_URL + '/materialized_concept.php',
 			type: "POST",
 			data: $(this).serialize(),
 			success: function (data, txtStatus, jqXHR) {
