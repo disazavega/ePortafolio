@@ -165,9 +165,9 @@ CREATE  TABLE IF NOT EXISTS `eportfolio`.`alignment` (
     REFERENCES `eportfolio`.`attribute` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_alignment_concetpMaterialized1`
+  CONSTRAINT `fk_alignment_conceptMaterialized1`
     FOREIGN KEY (`idConceptMaterialized` )
-    REFERENCES `eportfolio`.`concetpMaterialized` (`id` )
+    REFERENCES `eportfolio`.`conceptMaterialized` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
