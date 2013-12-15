@@ -6,13 +6,13 @@
 <input type='hidden' name='cm_id' value='{$cm.id}' />
 <input type='hidden' name='action' value='update' />
 
-<label for='concept-name' >Name</label>
-<input type='text' id='concept-name' name='cm_name' value='{$cm.name}' />
+<label for='cm-name' >Name</label>
+<input type='text' id='cm-name' name='cm_name' value='{$cm.name}' />
 
 <h3>Concept</h3>
 <div class='cm-edit-list-container edit-list-container'>
 	{foreach $concepts_list as $item}
-	<label><input type='radio' name='materialized_concept' checked='{$item.checked}' value='{$item.id}' />{$item.name}</label>
+	<label><input type='radio' name='concept' checked='{$item.checked}' value='{$item.id}' />{$item.name}</label>
 	{/foreach}
 </div>
 
@@ -27,7 +27,7 @@
 $(document).ready(function () {
 	$('.cm-edit-form').bind('submit', function (e) {
 		$.ajax({
-			url: SERVER_BASE_URL + '/materialized_materialized_concept.php',
+			url: SERVER_BASE_URL + '/materialized_concept.php',
 			type: "POST",
 			data: $(this).serialize(),
 			success: function (data, txtStatus, jqXHR) {

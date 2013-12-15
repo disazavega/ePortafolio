@@ -77,12 +77,16 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
 
 	// display it
 	$smarty->display('tpl/concept-mat-edit.tpl');
-} else if ($_POST['action'] === 'update' && is_numeric($_POST['cm_id'])) { // "update" is the submit action of "edit"
-	// TODO: Use the services to update the information about the materialized concept
+} else if ($_POST['action'] === 'update' && is_numeric($_POST['cm_id']) && !empty($_POST['cm_name'])) { // "update" is the submit action of "edit"
+	$s = new Services();
+
 	$id = intval($_POST['cm_id']);
 	// This is dummy code, to be removed, it just shows how you can send an error message or just ACK the request:
-	$test = intval($_POST['concept']);
-	if ($test !== 2) {
+	$concept = intval($_POST['concept']);
+	$name = $_POST['cm_name'];
+
+	$res = $s->UpdateMaterializedConcept($id, $name, $concept);
+	if (!$res) {
 		echo 'Error test message!';
 	} else {
 		echo 'OK';
