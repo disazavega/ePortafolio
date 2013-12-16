@@ -8,7 +8,7 @@
 	<input type='hidden' name='cm_id' value='{$cm.id}'>
 
 	<label for='alignment-name' >Name</label>
-	<input type='text' id='alignment-name' name="alignment_name" value='' />
+	<input type='text' id='alignment-name' name="alignment_name" value='{$cm.name}' />
 
 	<div class='two-edit-list-container' >
 		<h3>Attribute</h3>

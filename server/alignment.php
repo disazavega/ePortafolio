@@ -4,24 +4,23 @@ include('smarty/Smarty.class.php');
 include('services.php');
 include('common_functions.php');
 
-// Values for the tests
-$_POST['action'] = 'edit';
-$_POST['cm_id'] = '2';
-$_POST['alignment_id'] = '2';
-$_POST['field_id'] = '2';
-$_POST['attribute_id'] = '3';
-
 // GUI for the Alignment main screen
 if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
-        
-        // Call services
-        $service = new Services();
-
-	$matConcept = $service->RecoverMaterializedConcept($_POST['cm_id']);
-  	$alignments = $service->ListAlignmentsMC($_POST['cm_id']);
-      echo '<pre>';
-      var_dump($alignments);
-      echo '</pre>';
+    
+    
+    // Call services
+    $service = new Services();
+    $mat_concept = $service->RecoverMaterializedConcept($_POST['cm_id']);
+    $alignments = $service->ListAlignmentsMC($_POST['cm_id']);
+    
+    // Flags
+    echo '<pre>';
+    var_dump($alignments);
+    echo '</pre>';
+      
+    echo '<pre>';
+    var_dump($mat_concept);
+    echo '</pre>';
         
         // create object
 	$smarty = new Smarty;
@@ -30,8 +29,8 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
 	$smarty->assign('cm', array(
-		'id' => $id, 
-                'name' => sanitize($current_concept_name)
+		'id' => $mat_concept->id, 
+                'name' => sanitize($mat_concept->name)
 	));
         
 	$list = array();
@@ -40,49 +39,49 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
         foreach ($alignments as $alignment) {
            $list[] = array(
                     'id' => $allignment->id,
-     //             'name' => $aligName
-                    'name' => $allignment->idField
+                    'name' => sanitize("Dummie :D")
              );
+           echo 'a dummie was set !';
         }
 
         $smarty->assign('alignments_list', $list);
 
-        echo 'before the display';    
+        echo 'Hi Dummie';    
 	// display it - Nothing displayed...
 	$smarty->display('tpl/alignment-list.tpl');
 } else if ($_POST['action'] === 'edit' && is_numeric($_POST['alignment_id'])) {
     
     // Call services
     $service = new Services();
-    
-    
-	// create object
-	$smarty = new Smarty;
+    $alignment_id = intval($_POST['alignment_id']);
+    $cm_id = intval($_POST['cm_id']);
+// TO DO : Add the form id
+    $form_id = intval("1");
+        
+    //Load
+    $this_alignment = $service->RecoverAlignment($alignment_id);
+    $attributes = $service->ListAttributesConceptMaterialized($cm_id);
+    $fields = $service->ListFieldsForm($form_id);
+//      echo '<pre>';
+//      var_dump($fields);
+//      echo '</pre>';
 
-	$alignment_id = intval($_POST['alignment_id']);
-        $cm_id = intval($_POST['cm_id']);
-        // TO DO : Add the form id
-        $form_id = intval("1");
+    // create object
+    $smarty = new Smarty;
+    
+    //First smarty assing
 
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
+        // Normaly thats no the
 	$smarty->assign('cm', array(
-		'id' => $alignment_id,
-	    'name' => sanitize($current_concept_name)
+		'id' => $this_alignment->id,
+	    'name' => sanitize("No Name right ?")
 	));
 
 	$list_fields = array();
 	$list_attributes = array();
         
-        //Load
-        $this_alignment = $service->RecoverAlignment($alignment_id);
-        $attributes = $service->ListAttributesConceptMaterialized($cm_id);
-        $fields = $service->ListFieldsForm($form_id);
-//      echo '<pre>';
-//      var_dump($fields);
-//      echo '</pre>';
-        
-
-	//Assignation field
+        //Assignation field
         foreach ($fields as $field) {
             $list_fields[] = array(
 		'id' => $field->id,
@@ -119,7 +118,18 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 	}
 
 } else if ($_POST['action'] === 'new' && is_numeric($_POST['cm_id'])) { /* we need the CM id in order to create an alignment, so that we can display the right options... */
-	// Call services
+
+    // Call services
+    $service = new Services();
+    $alignment_id = intval($_POST['alignment_id']);
+    $cm_id = intval($_POST['cm_id']);
+// TO DO : Add the form id
+    $form_id = intval("1");
+        
+    //Load
+    $this_alignment = $service->RecoverAlignment($alignment_id);
+    $attributes = $service->ListAttributesConceptMaterialized($cm_id);
+    $fields = $service->ListFieldsForm($form_id);
 
         // create object
 	$smarty = new Smarty;
@@ -129,26 +139,29 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
 	$smarty->assign('cm', array(
 		'id' => $id,
-	    'name' => sanitize($current_concept_name)
+	    'name' => sanitize("Normaly there s no name, right !")
 	));
 
-	$list = array();
-	$list2 = array();
-
-	// TODO Replace this for loop by a for loop on the Services' return value...
-	// listing the attributes and fields for the current alignment
-	for ($i=1; $i < 5; $i++) { 
-		$list[] = array(
-			'id' => $i,
-			'name' => "DummyAttribute{$i}"
-		);
-		$list2[] = array(
-			'id' => $i,
-			'name' => "DummyField{$i}"
-		);
-	}
-	$smarty->assign('attributes_list', $list);
-	$smarty->assign('fields_list', $list2);
+	$list_fields = array();
+	$list_attributes = array();
+        
+        //Assignation field
+        foreach ($fields as $field) {
+            $list_fields[] = array(
+		'id' => $field->id,
+		'name' => sanitize($field->name)
+            );
+        }
+        
+        //Assignation attributes
+        foreach ($attributes as $attribute) {
+            $list_attributes[] = array(
+                'id' => $attribute->id,
+                'name' => sanitize($attribute->name)
+            );
+        }
+	$smarty->assign('attributes_list', $list_attributes);
+	$smarty->assign('fields_list', $list_fields);
 
 	// display it
 	$smarty->display('tpl/alignment-new.tpl');
