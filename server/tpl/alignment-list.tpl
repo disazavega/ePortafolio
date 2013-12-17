@@ -26,7 +26,6 @@
             var c = get_checked_input()
             if (c.length) {
                 c = c.eq(0).attr('value')
-                alert(c)
                 load_url('/alignment.php', {
                     'alignment_id': c,
                     'action': 'edit',
