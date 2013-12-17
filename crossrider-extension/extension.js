@@ -28,6 +28,7 @@ appAPI.ready(function($) {
         GUI_CONTAINER.css("display", "none")
         //$(e).unbind("focusout", hideContainerFocusOut)
     };
+    var focusThisOutIsBoundToDocument = false;
     var focusThisOut = function (e) {
         var o = GUI_CONTAINER.offset();
         if (!(
@@ -39,6 +40,7 @@ appAPI.ready(function($) {
             self = this
             setTimeout(function () {
                 $(document).unbind('click', focusThisOut)
+                focusThisOutIsBoundToDocument = false;
             }, 100)
         }
     };
@@ -55,9 +57,12 @@ appAPI.ready(function($) {
         })
         load_url("/home.php")
         if (focusedField) {
-            setTimeout(function () {
-                $(document).click(focusThisOut);
-            }, 150)
+            if (!focusThisOutIsBoundToDocument) {
+                setTimeout(function () {
+                    focusThisOutIsBoundToDocument = true;
+                    $(document).click(focusThisOut);
+                }, 150)
+            };
             //focusedField.focus() // set the focus back to the field   
             //focusedField.focusout(hideContainerFocusOut);
         }
