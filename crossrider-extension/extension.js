@@ -49,8 +49,8 @@ appAPI.ready(function($) {
             top: o.top + evt.currentTarget.width,
             left: o.left +  + evt.currentTarget.height,
             display: 'block',
-            width: '190px',
-            maxHeight: '450px',
+            // width: '190px',
+            // maxHeight: '450px',
             padding: '5px'
         })
         load_url("/home.php")
