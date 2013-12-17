@@ -6,47 +6,32 @@ include('common_functions.php');
 
 // GUI for the Alignment main screen
 if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
-    
-    
     // Call services
     $service = new Services();
-    $mat_concept = $service->RecoverMaterializedConcept($_POST['cm_id']);
-    $alignments = $service->ListAlignmentsMC($_POST['cm_id']);
+    $cm_id = intval($_POST['cm_id']);
+    $mat_concept = $service->RecoverMaterializedConcept($cm_id);
+    $alignments = $service->ListAlignmentsMC($cm_id);
     
-    // Flags
-    echo '<pre>';
-    var_dump($alignments);
-    echo '</pre>';
-      
-    echo '<pre>';
-    var_dump($mat_concept);
-    echo '</pre>';
-        
-        // create object
+    // create object
 	$smarty = new Smarty;
         
-        $id = intval($_POST['cm_id']);
-
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
 	$smarty->assign('cm', array(
 		'id' => $mat_concept->id, 
-                'name' => sanitize($mat_concept->name)
+        'name' => sanitize($mat_concept->name)
 	));
         
 	$list = array();
         
-        // Assign values
-        foreach ($alignments as $alignment) {
-           $list[] = array(
-                    'id' => $allignment->id,
-                    'name' => sanitize("Dummie :D")
-             );
-           echo 'a dummie was set !';
-        }
+    // Assign values
+    foreach ($alignments as $alignment) {
+        $list[] = array(
+                'id' => $allignment->id,
+                'name' => sanitize("Dummie :D")
+         );
+    }
 
-        $smarty->assign('alignments_list', $list);
-
-        echo 'Hi Dummie';    
+    $smarty->assign('alignments_list', $list);
 	// display it - Nothing displayed...
 	$smarty->display('tpl/alignment-list.tpl');
 } else if ($_POST['action'] === 'edit' && is_numeric($_POST['alignment_id'])) {

@@ -5,16 +5,15 @@
 <form class='edit-form'>
 
 <div class='edit-list-container alignment-edit-list-container'>
-	<form id='cm-choose-form'>new
+	<form id='cm-choose-form'>
 		{foreach $alignments_list as $item}
-		<label><input type='radio' name='materialized_concept' value='{$item.id}' />{$item.name}</label>
+		<label><input type='radio' name='alignment_id' value='{$item.id}' />{$item.name}</label>
 		{/foreach}
 	    <div class='concepts-bottom-buttons-container'>
 	        <input type='button' name='action' value='New' class='new-alignment-btn' />
 	        <input type='button' name='action' value='Edit' class='edit-alignment-btn' />
 	        <input type='button' name='action' value='Delete' class='delete-alignment-btn' />
 	    </div>
-	    <input type='button' name='action' value='alignment' class='alignment-button' />
 	</form>	
 </div>
 
