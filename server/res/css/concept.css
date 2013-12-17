@@ -5,4 +5,6 @@
 
 .edit-list-container label {
 	display:block;
+	white-space: nowrap;
+	overflow: hidden;
 }

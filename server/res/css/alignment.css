@@ -1,11 +1,18 @@
 /* Will override home.css settings, this stylesheet is supposed to be loaded afterwards */
 #GUIContainer {
     width: 380px;
-    max-height: 150px;
 }
 
 .two-edit-list-container .alignment-edit-list-container {
 	width: 45%;
 	float: left;
 	margin-left: 2.5%;
+}
+
+.alignment-edit-bottom-buttons {
+	clear:left;
+}
+
+.alignment-edit-list-container {
+	border: none;
 }
