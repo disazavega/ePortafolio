@@ -63,25 +63,16 @@
             {foreach $schema_list as $item}
             <label><input type='radio' name='schema_id' value='{$item.id}' />{$item.name}</label>
             {/foreach}
-            <div class='schema-bottom-buttons-container'>
+            <div class='bottom-buttons-container'>
                 <input type='button' name='action' value='New' class='new-schema-btn' />
                 <input type='button' name='action' value='Edit' class='edit-schema-btn' />
                 <input type='button' name='action' value='Delete' class='delete-schema-btn' />
             </div>
-            <input type='button' name='action' value='alignment' class='alignment-button' />
         </form>
     </div>
 </div>
 <scripttoload>
     $(document).ready(function () {
-        var get_cm_checked_input = function() {
-            var f = $('#cm-choose-form')
-            return f.find('input[type="radio"]:checked')
-        }
-        var get_schema_checked_input = function() {
-            var f = $('#schema-choose-form')
-            return f.find('input[type="radio"]:checked')
-        }
         /* Sliding up/down tabs code */
         $('.autocomplete-history dt').click(function (e) {
             $(this).next('dd').slideToggle('fast'); 
@@ -97,8 +88,11 @@
                 unfolded = toBeUnfolded
             })
         
-
         /* ------ Now it's about materialized concepts ------- */
+        var get_cm_checked_input = function() {
+            var f = $('#cm-choose-form')
+            return f.find('input[type="radio"]:checked')
+        }
         /* --------- Buttons handlers ------- */
         $('.edit-concept-btn').click(function (e) {
             var c = get_cm_checked_input()
@@ -145,6 +139,11 @@
         })
 
         /* ------ Now it's about schemas ------- */
+        var get_schema_checked_input = function() {
+            var f = $('#schema-choose-form')
+            return f.find('input[type="radio"]:checked')
+        }
+
         /* --------- Buttons handlers ------- */
         $('.edit-schema-btn').click(function (e) {
             var c = get_schema_checked_input()
@@ -199,7 +198,5 @@
                 })
             }
         })
-
-
     })
 </scripttoload>

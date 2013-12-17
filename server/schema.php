@@ -10,11 +10,22 @@ if ($_POST['action'] === 'new') {
 
 	// Call services
 	$service = new Services();
-	
+	$concepts = $service->ListConcepts();
+
 	// Create object
 	$smarty = new Smarty;
 
+	$list = array();
+	// Assign values
+	foreach ($concepts as $concept) {
+		$list[] = array(
+				'id' => $concept->id,
+				'name' => $concept->name
+			);
+	}
+
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
+	$smarty->assign('concepts_list', $list);
 	// display it
 	$smarty->display('tpl/schema-new.tpl');
 } 
