@@ -20,12 +20,13 @@
         var get_checked_input = function() {
             var f = $('#alignment-choose-form')
             return f.find('input[type="radio"]:checked')
-        }
+        };
         /* --------- Buttons handlers ------- */
         $('.edit-alignment-btn').click(function (e) {
             var c = get_checked_input()
             if (c.length) {
                 c = c.eq(0).attr('value')
+                alert(c)
                 load_url('/alignment.php', {
                     'alignment_id': c,
                     'action': 'edit',
@@ -33,7 +34,7 @@
             } else {
                 alert('Nothing selected!')
             }
-        })
+        });
 
         $('.delete-alignment-btn').click(function (e) {
             var c = get_checked_input()
@@ -59,7 +60,7 @@
             } else {
                 return false
             }
-        })
+        });
 
 
         $('.new-alignment-btn').click(function (e) {
@@ -67,7 +68,7 @@
                 'action': 'new',
                 'cm_id': {$cm.id} /* we need the CM id in order to create an alignment, so that we can display the right options... */
             })
-        })
+        });
 
         $('.alignment-button').click(function (e) {
             var c = get_checked_input()
@@ -78,8 +79,6 @@
                     'action': 'list',
                 })
             }
-        })
-
-
+        });
     })
 </scripttoload>
