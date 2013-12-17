@@ -2,10 +2,8 @@
 <link href='{$BASE_URL}/res/css/concept.css' rel='stylesheet' />
 <h2>Alignments</h2>
 
-<form class='edit-form'>
-
 <div class='edit-list-container alignment-edit-list-container'>
-	<form id='cm-choose-form'>
+	<form id='alignment-choose-form'>
 		{foreach $alignments_list as $item}
 		<label><input type='radio' name='alignment_id' value='{$item.id}' />{$item.name}</label>
 		{/foreach}
@@ -17,17 +15,10 @@
 	</form>	
 </div>
 
-
-<div class='edit-bottom-buttons' >
-    <input type='submit' class='submit-button' value='Save' />
-</div>
-
-</form>
-
 <scripttoload>
     $(document).ready(function () {
         var get_checked_input = function() {
-            var f = $('#cm-choose-form')
+            var f = $('#alignment-choose-form')
             return f.find('input[type="radio"]:checked')
         }
         /* --------- Buttons handlers ------- */
@@ -39,6 +30,8 @@
                     'alignment_id': c,
                     'action': 'edit',
                 })
+            } else {
+                alert('Nothing selected!')
             }
         })
 

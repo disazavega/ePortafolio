@@ -9,42 +9,36 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
     // Call services
     $service = new Services();
     $cm_id = intval($_POST['cm_id']);
-    $mat_concept = $service->RecoverMaterializedConcept($cm_id);
     $alignments = $service->ListAlignmentsMC($cm_id);
     
     // create object
 	$smarty = new Smarty;
         
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
-	$smarty->assign('cm', array(
-		'id' => $mat_concept->id, 
-        'name' => sanitize($mat_concept->name)
-	));
-        
 	$list = array();
         
     // Assign values
     foreach ($alignments as $alignment) {
         $list[] = array(
-                'id' => $allignment->id,
+                'id' => $alignment->id,
                 'name' => sanitize("Dummie :D")
          );
     }
 
     $smarty->assign('alignments_list', $list);
-	// display it - Nothing displayed...
+	// display it 
 	$smarty->display('tpl/alignment-list.tpl');
 } else if ($_POST['action'] === 'edit' && is_numeric($_POST['alignment_id'])) {
     
     // Call services
     $service = new Services();
     $alignment_id = intval($_POST['alignment_id']);
-    $cm_id = intval($_POST['cm_id']);
 // TO DO : Add the form id
     $form_id = intval("1");
         
     //Load
     $this_alignment = $service->RecoverAlignment($alignment_id);
+    $cm_id = intval($this_alignment->idConceptMaterialized);
     $attributes = $service->ListAttributesConceptMaterialized($cm_id);
     $fields = $service->ListFieldsForm($form_id);
 //      echo '<pre>';
