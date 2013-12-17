@@ -106,7 +106,7 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['cm_id'])) {
 	if ($res) {
 		echo 'OK';
 	} else {
-		echo 'Error delete MC test message! Error is ' . $service->get_error($res);
+		echo 'Error delete MC test message! See logs.';
 	}
 }
 
