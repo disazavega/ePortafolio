@@ -14,14 +14,14 @@
 		<div class='alignment-edit-list-container edit-list-container'>
 		<h3>Attribute</h3>
 			{foreach $attributes_list as $item}
-			<label><input type='radio' name='attribute_id' value='{$item.id}' />{$item.name}</label>
+			<label><input type='radio' name='attribute_id' {$item.checked} value='{$item.id}' />{$item.name}</label>
 			{/foreach}
 		</div>
 
 		<div class='alignment-edit-list-container edit-list-container'>
 		<h3>Field</h3>
 			{foreach $fields_list as $item}
-			<label><input type='radio' name='field_id' value='{$item.id}' />{$item.name}</label>
+			<label><input type='radio' name='field_id' {$item.checked} value='{$item.id}' />{$item.name}</label>
 			{/foreach}
 		</div>
 	</div>

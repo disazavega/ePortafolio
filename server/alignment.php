@@ -71,7 +71,7 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
         $list_fields[] = array(
             'id' => $field->id,
             'name' => sanitize($field->name),
-            'checked' => ($field->id === $this_alignment->idField) ? "checked='checked'" : ""
+            'checked' => (intval($field->id) === intval($this_alignment->idField)) ? "checked='checked'" : ""
         );
     }
     
@@ -80,10 +80,10 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
         $list_attributes[] = array(
             'id' => $attribute->id,
             'name' => sanitize($attribute->name),
-            'checked' => ($attribute->id === $this_alignment->idAttribute) ? "checked='checked'" : ""
+            'checked' => (intval($attribute->id) === intval($this_alignment->idAttribute)) ? "checked='checked'" : ""
         );
     }
-    
+
     $smarty->assign('attributes_list', $list_attributes);
     $smarty->assign('fields_list', $list_fields);
 
