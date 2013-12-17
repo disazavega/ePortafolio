@@ -1,0 +1,9 @@
+.schema-form-top-aligned-fields label {
+	display: inline-block;
+	width: 60px;
+}
+
+.schema-form-top-aligned-fields input {
+	display: inline-block;
+	width: 120px;
+}

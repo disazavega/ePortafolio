@@ -42,11 +42,11 @@
     <h2 class='gui-folding-block-title'>Concept Materializer</h2>
     <div class='gui-folding-block-content gui-init-unfolded' >
         <h3>Concepts</h3>
-        <form id='cm-choose-form' action='TODO' method='TODO' >
+        <form id='cm-choose-form' >
             {foreach $materialized_concepts_list as $item}
             <label><input type='radio' name='cm_id' value='{$item.id}' />{$item.name}</label>
             {/foreach}
-            <div class='concepts-bottom-buttons-container'>
+            <div class='bottom-buttons-container'>
                 <input type='button' name='action' value='New' class='new-concept-btn' />
                 <input type='button' name='action' value='Edit' class='edit-concept-btn' />
                 <input type='button' name='action' value='Delete' class='delete-concept-btn' />
@@ -55,10 +55,31 @@
         </form>
     </div>
 </div>
+<div class='schema-container gui-folding-block'>
+    <h2 class='gui-folding-block-title'>Schemas</h2>
+    <div class='gui-folding-block-content gui-init-unfolded' >
+        <h3>Schemas</h3>
+        <form id='schema-choose-form' >
+            {foreach $schema_list as $item}
+            <label><input type='radio' name='schema_id' value='{$item.id}' />{$item.name}</label>
+            {/foreach}
+            <div class='schema-bottom-buttons-container'>
+                <input type='button' name='action' value='New' class='new-schema-btn' />
+                <input type='button' name='action' value='Edit' class='edit-schema-btn' />
+                <input type='button' name='action' value='Delete' class='delete-schema-btn' />
+            </div>
+            <input type='button' name='action' value='alignment' class='alignment-button' />
+        </form>
+    </div>
+</div>
 <scripttoload>
     $(document).ready(function () {
-        var get_checked_input = function() {
+        var get_cm_checked_input = function() {
             var f = $('#cm-choose-form')
+            return f.find('input[type="radio"]:checked')
+        }
+        var get_schema_checked_input = function() {
+            var f = $('#schema-choose-form')
             return f.find('input[type="radio"]:checked')
         }
         /* Sliding up/down tabs code */
@@ -75,9 +96,12 @@
                 toBeUnfolded.slideDown('fast')
                 unfolded = toBeUnfolded
             })
+        
+
+        /* ------ Now it's about materialized concepts ------- */
         /* --------- Buttons handlers ------- */
         $('.edit-concept-btn').click(function (e) {
-            var c = get_checked_input()
+            var c = get_cm_checked_input()
             if (c.length) {
                 c = c.eq(0).attr('value')
                 load_url('/materialized_concept.php', {
@@ -88,7 +112,7 @@
         })
 
         $('.delete-concept-btn').click(function (e) {
-            var c = get_checked_input()
+            var c = get_cm_checked_input()
             if (c.length) {
                 name = c.eq(0).parent().contents()[1].data /* this is clearly not good code TODO improve that */
                 answer = window.confirm('Are you sure you want to desintegrate the materialized concept "' + name + '"')
@@ -120,8 +144,53 @@
             })
         })
 
+        /* ------ Now it's about schemas ------- */
+        /* --------- Buttons handlers ------- */
+        $('.edit-schema-btn').click(function (e) {
+            var c = get_schema_checked_input()
+            if (c.length) {
+                c = c.eq(0).attr('value')
+                load_url('/schema.php', {
+                    'cm_id': c,
+                    'action': 'edit',
+                })
+            }
+        })
+
+        $('.delete-schema-btn').click(function (e) {
+            var c = get_schema_checked_input()
+            if (c.length) {
+                name = c.eq(0).parent().contents()[1].data /* this is clearly not good code TODO improve that */
+                answer = window.confirm('Are you sure you want to desintegrate the materialized concept "' + name + '"')
+                if (answer) {
+                    $.post(SERVER_BASE_URL + '/schema.php', {
+                        'action': 'delete',
+                        'cm_id': c.eq(0).attr('value')
+                    },
+                    function (data, txtStatus, jqXHR) {
+                        if (data === 'OK') {
+                            load_url('/home.php', null)
+                        } else {
+                            /* TODO: Error handling? */
+                            alert("Error, server responded: " + data)
+                        }
+                    })
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        })
+
+        $('.new-schema-btn').click(function (e) {
+            load_url('/schema.php', {
+                'action': 'new'
+            })
+        })
+
         $('.alignment-button').click(function (e) {
-            var c = get_checked_input()
+            var c = get_schema_checked_input()
             if (c.length) {
                 c = c.eq(0).attr('value')
                 load_url('/alignment.php', {

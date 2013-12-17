@@ -31,6 +31,10 @@
 
 }
 
+#GUIContainer input[type='text'] {
+    border:1px solid gray;
+}
+
 #GUIContainer {
     font-size: 0.9em;
     overflow: hidden;
@@ -67,7 +71,7 @@
     margin-left: 5px;
 }
 
-.cm-container form .concepts-bottom-buttons-container input:first-child {
+form .bottom-buttons-container input:first-child {
     margin-left: 13px;
 }
 
