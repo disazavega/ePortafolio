@@ -22,12 +22,16 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
     ));
         
     $list = array();
+    $field_aling = new Field();
+    $attribute_align = new Attribute();
         
     // Assign values
     foreach ($alignments as $alignment) {
+        $field_aling = $service->RecoverField($alignment->idField);
+        $attribute_align = $service->RecoverAttribute($alignment->idAttribute);
         $list[] = array(
                 'id' => $alignment->id,
-                'name' => sanitize("Dummie :D")
+                'name' => sanitize("{$field_aling->name} / {$attribute_align->name}")
          );
     }
 
