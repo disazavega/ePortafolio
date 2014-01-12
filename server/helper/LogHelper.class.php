@@ -164,6 +164,7 @@ class LogHelper
             return;
         }
 
+        date_default_timezone_set('UTC');
         $this->_logFilePath = $logDirectory
             . DIRECTORY_SEPARATOR
             . 'log_'

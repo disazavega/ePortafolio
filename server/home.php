@@ -30,13 +30,20 @@ $smarty->assign('history', array(
 
 $service = new Services();
 $materialized_concepts_data = $service->ListMaterializedConceptsForm(1);
+$schema_list_data = $service->ListSchemas();
 
 $materialized_concepts_list = array();
 foreach ($materialized_concepts_data as $c) {
     $materialized_concepts_list[] = array('name' => $c->name, 'id' => $c->id);
 }
 
+$schema_list = array();
+foreach ($schema_list_data as $c) {
+    $schema_list[] = array('name' => $c->name, 'id' => $c->id);
+}
+
 $smarty->assign('materialized_concepts_list', $materialized_concepts_list);
+$smarty->assign('schema_list', $schema_list);
 
 // display it
 $smarty->display('tpl/home.tpl');
