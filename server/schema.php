@@ -114,15 +114,20 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['schema_id'])) {
 	if (!$res) {
 		echo 'Error create Concept (Schema)!';
 	}
+	else{
+		echo 'OK';	
+	}
 } else if ($_POST['action'] === 'delete') { 
 	$service = new Services();
 	$schema_id = intval($_POST['schema_id']);
 
-	//TODO $res = some call to a service
-	if ($res) {
-		echo 'OK';
-	} else {
-		echo 'Error delete MC test message! See logs.';
+	$res = $service->DeleteSchema($schema_id);
+
+	if (!$res) {
+		echo 'Could not delete Schema: ';
+	} 
+	else {
+	echo 'OK';
 	}
 }
 
