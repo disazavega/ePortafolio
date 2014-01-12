@@ -40,8 +40,9 @@ if ($_POST['action'] === 'new') {
 	// display it
 	$smarty->display('tpl/schema-new.tpl');
 } 
-// GUI for the conceptMaterialized update
+// GUI for the schema update
 else if ($_POST['action'] === 'edit' && is_numeric($_POST['schema_id'])) {
+
 
 	// Call services
 	$service = new Services();
@@ -52,7 +53,30 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['schema_id'])) {
 	$id = intval($_POST['schema_id']);
 	
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
-	//TODO
+	//getting schema by id:
+	$schema = $service->ListSchemaById($id);
+
+	//getting concepta
+
+	$concepts = $service->ListConcepts();
+	$concepts_list = array();
+	foreach($concepts as $concept){
+		$concepts_list[] = array(
+			'id' => $concept->id,
+			'name' => $concept->name
+		);
+	}
+	$smarty->assign('concepts_list', $concepts_list);
+
+	$smarty->assign('schema', array(
+		'id' => $schema->id,
+		'name' => sanitize($schema->name),
+		'author' => sanitize($schema->author),
+		'date' => sanitize($schema->createdAt)
+	));
+	
+
+
 	// display it
 	$smarty->display('tpl/schema-edit.tpl');
 } else if ($_POST['action'] === 'update' && is_numeric($_POST['schema_id']) && !empty($_POST['schema_name'])) { // "update" is the submit action of "edit"
@@ -61,7 +85,10 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['schema_id'])) {
 	$id = intval($_POST['schema_id']);
 	$schema_name = $_POST['schema_name'];
 
-	//TODO $res = some call to a service
+	$res = $service->UpdateSchema($_POST['schema_id'], $_POST['schema_name'], $_POST['schema_author']);
+
+	//TODO: handle concepts
+
 	if (!$res) {
 		echo 'Error update MC test message!';
 	} else {
