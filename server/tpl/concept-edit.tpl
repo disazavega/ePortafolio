@@ -1,17 +1,15 @@
 <link href='{$BASE_URL}/res/css/home.css' rel='stylesheet' />
 <link href='{$BASE_URL}/res/css/concept.css' rel='stylesheet' />
-<link href='{$BASE_URL}/res/css/schema.css' rel='stylesheet' />
-<h2>Schemas / Creation</h2>
+<link href='{$BASE_URL}/res/css/concept.css' rel='stylesheet' />
+<h2>Concept Update</h2>
 
-<form class='schema-edit-form'>
+<form class='concept-edit-form'>
     <input type='hidden' name='action' value='update'>
     <input type='hidden' name='form_id' value='1'><!-- TODO: INject the actual form id? -->
-	<input id='schema_id_input' type='hidden' name='schema_id' value='{$schema.id}'/>
+	<input id='concept_id_input' type='hidden' name='concept_id' value='{$concept.id}'/>
 
-    <div class='schema-form-top-aligned-fields'>
-        <label for='schema_name_input'>Name</label>     <input id='schema_name_input' type='text' name='schema_name' value='{$schema.name}'/>
-        <label for='schema_author_input'>Author</label> <input id='schema_author_input' type='text' name='schema_author' value='{$schema.author}'/>
-        <label for='schema_date_input'>Date</label>     <input id='schema_date_input' type='text' name='schema_date' value='{$schema.date}'/>
+    <div class='concept-form-top-aligned-fields'>
+        <label for='concept_name_input'>Name</label>     <input id='concept_name_input' type='text' name='concept_name' value='{$concept.name}'/>
     </div>
 
     <div class=''>
@@ -79,8 +77,7 @@
 
     $('.new-concept-btn').click(function (e) {
         load_url('/concept.php', {
-            'action': 'new',
-            'schema_id' : {$schema.id}
+            'action': 'new'
         })
     })
 
@@ -88,9 +85,9 @@
         load_url('/home.php'); return false;
     })	
 
-	$('.schema-edit-form').bind('submit', function (e) {
+	$('.concept-edit-form').bind('submit', function (e) {
 		$.ajax({
-			url: SERVER_BASE_URL + '/schema.php',
+			url: SERVER_BASE_URL + '/concept.php',
 			type: "POST",
 			data: $(this).serialize(),
 			success: function (data, txtStatus, jqXHR) {

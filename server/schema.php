@@ -5,7 +5,7 @@ include('services.php');
 include('common_functions.php');
 
 
-// GUI for the schemas
+// GUI for the schemas	
 if ($_POST['action'] === 'new') {
 
 	// Call services
@@ -25,17 +25,17 @@ if ($_POST['action'] === 'new') {
 	}
 
 	//getting concepts:
-	$concepts = $service->ListConcepts();
-	$concepts_list = array();
-	foreach($concepts as $concept){
-		$concepts_list[] = array(
-			'id' => $concept->id,
-			'name' => $concept->name
-		);
-	}
+// 	$concepts = $service->ListConcepts();
+ 	$concepts_list = array();
+// 	foreach($concepts as $concept){
+// 		$concepts_list[] = array(
+// 			'id' => $concept->id,
+// 			'name' => $concept->name
+// 		);
+// 	}
 
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
-	$smarty->assign('schemas_list', $list);
+	//$smarty->assign('schemas_list', $list);
 	$smarty->assign('concepts_list', $concepts_list);
 	// display it
 	$smarty->display('tpl/schema-new.tpl');
@@ -56,9 +56,11 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['schema_id'])) {
 	//getting schema by id:
 	$schema = $service->ListSchemaById($id);
 
-	//getting concepta
-
-	$concepts = $service->ListConcepts();
+	//getting concepts
+	
+	$concepts = $service->ListConceptsBySchemaId($id);
+	
+	
 	$concepts_list = array();
 	foreach($concepts as $concept){
 		$concepts_list[] = array(
@@ -97,7 +99,6 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['schema_id'])) {
 } else if ($_POST['action'] === 'create') { // "create" is the submit action of "new"
 	$service = new Services();
 
-	$concept_id = intval($_POST['concept']);
 	$schema_name = $_POST['schema_name'];
 	
 	//storing schema	

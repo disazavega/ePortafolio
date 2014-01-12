@@ -12,20 +12,6 @@
         <label for='schema_author_input'>Author</label> <input id='schema_author_input' type='text' name='schema_author' />
         <label for='schema_date_input'>Date</label>     <input id='schema_date_input' type='text' name='schema_date' />
     </div>
-
-    <div class=''>
-        <h3>Concepts</h3>
-        <div id='concept-choose-form' class='edit-list-container'>
-            {foreach $concepts_list as $item}
-            <label><input type='radio' value='{$item.name}' name='concept_id'> {$item.name}</label>
-            {/foreach}
-        </div>
-        <div class='bottom-buttons-container'>
-            <input type='button' name='action' value='New' class='new-concept-btn' />
-            <input type='button' name='action' value='Edit' class='edit-concept-btn' />
-            <input type='button' name='action' value='Delete' class='delete-concept-btn' />
-        </div>
-    </div>
 	<div class='bottom-buttons-container'>
             <input type='reset' value='Cancel' class='cancel-button' />
             <input type='submit' value='Save/Create' class='submit-button' />

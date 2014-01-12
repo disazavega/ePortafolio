@@ -35,6 +35,15 @@ class Services {
         $queryConcepts = $this->conceptMapper->loadAll();
         return $queryConcepts;
     }
+    
+    function ListConceptsBySchemaId($schemaId) {
+        $queryConcepts = $this->conceptMapper->loadBy('idSchema', $schemaId);
+        return $queryConcepts;
+    }
+    
+    function ListConceptById($id) {
+	return $this->conceptMapper->load($id);
+    }
 
     //Services definition: S0202
     function MaterializeConcept($idForm, $idConcept, $conceptName){
