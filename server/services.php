@@ -133,6 +133,12 @@ class Services {
 	return $schemasMapper->loadAll();
     }
 
+	//Services definition: S0901_1
+    function ListSchemaById($id){
+	$schemasMapper = new ModelMapper(get_class(new Schema()));
+	return $schemasMapper->load($id);
+    }
+
     //Services definition: S1001
     function ListConceptSchemas($idSchema){
 	return $this->conceptMapper->loadBy('idSchema', $idSchema);
