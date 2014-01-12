@@ -56,12 +56,12 @@
     </div>
 </div>
 <div class='schema-container gui-folding-block'>
-    <h2 class='gui-folding-block-title'>Schemas</h2>
+    <h2 class='gui-folding-block-title'>Schemas!!!</h2>
     <div class='gui-folding-block-content gui-init-unfolded' >
         <h3>Schemas</h3>
         <form id='schema-choose-form' >
             {foreach $schema_list as $item}
-            <label><input type='radio' name='schema_id' value='{$item.id}' />{$item.name}</label>
+            <label><input type='radio' name='schema_id' value='{$item.id}' />{$item.name}</label><br/>
             {/foreach}
             <div class='bottom-buttons-container'>
                 <input type='button' name='action' value='New' class='new-schema-btn' />
@@ -150,7 +150,7 @@
             if (c.length) {
                 c = c.eq(0).attr('value')
                 load_url('/schema.php', {
-                    'cm_id': c,
+                    'schema_id': c,
                     'action': 'edit',
                 })
             }
