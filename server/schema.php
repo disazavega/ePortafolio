@@ -10,22 +10,33 @@ if ($_POST['action'] === 'new') {
 
 	// Call services
 	$service = new Services();
-	$concepts = $service->ListConcepts();
+	$schemas = $service->ListSchemas();
 
 	// Create object
 	$smarty = new Smarty;
 
 	$list = array();
 	// Assign values
-	foreach ($concepts as $concept) {
+	foreach ($schemas as $schema) {
 		$list[] = array(
-				'id' => $concept->id,
-				'name' => $concept->name
+				'id' => $schema->id,
+				'name' => $schema->name
 			);
 	}
 
+	//getting concepts:
+	$concepts = $service->ListConcepts();
+	$concepts_list = array();
+	foreach($concepts as $concept){
+		$concepts_list[] = array(
+			'id' => $concept->id,
+			'name' => $concept->name
+		);
+	}
+
 	$smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
-	$smarty->assign('concepts_list', $list);
+	$smarty->assign('schemas_list', $list);
+	$smarty->assign('concepts_list', $concepts_list);
 	// display it
 	$smarty->display('tpl/schema-new.tpl');
 } 
@@ -61,12 +72,20 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['schema_id'])) {
 
 	$concept_id = intval($_POST['concept']);
 	$schema_name = $_POST['schema_name'];
-		
-	//TODO $res = some call to a service
+	
+	//storing schema	
+	$res = $service->CreateSchema($_POST['schema_name'], $_POST['schema_author']);
+
 	if (!$res) {
-		echo 'Error create MC test message!';
-	} else {
-		echo 'OK';
+		echo 'Error create Schema instance!';
+	}
+
+	//storing concept for schema
+	//TODO: to be cleared if it is fine!!!
+	//$res = $service->CreateConcept($res, $_POST['concept_name']);
+
+	if (!$res) {
+		echo 'Error create Concept (Schema)!';
 	}
 } else if ($_POST['action'] === 'delete') { 
 	$service = new Services();

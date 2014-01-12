@@ -17,7 +17,7 @@
         <h3>Concepts</h3>
         <div id='concept-choose-form' class='edit-list-container'>
             {foreach $concepts_list as $item}
-            <label><input type='radio' value='{$item.id}' name='concept_id'> {$item.name}</label>
+            <label><input type='radio' value='{$item.name}' name='concept_id'> {$item.name}</label>
             {/foreach}
         </div>
         <div class='bottom-buttons-container'>
@@ -25,6 +25,10 @@
             <input type='button' name='action' value='Edit' class='edit-concept-btn' />
             <input type='button' name='action' value='Delete' class='delete-concept-btn' />
         </div>
+    </div>
+	<div class='bottom-buttons-container'>
+            <input type='reset' value='Cancel' class='cancel-button' />
+            <input type='submit' value='Save/Create' class='submit-button' />
     </div>
 </form>
 
@@ -77,4 +81,30 @@
             'action': 'new'
         })
     })
+
+    $('.cancel-button').click(function (e) {
+        load_url('/home.php'); return false;
+    })	
+
+	$('.schema-new-form').bind('submit', function (e) {
+		$.ajax({
+			url: SERVER_BASE_URL + '/schema.php',
+			type: "POST",
+			data: $(this).serialize(),
+			success: function (data, txtStatus, jqXHR) {
+				if (data === 'OK') {
+					load_url('/home.php', null)
+				} else {
+					/* TODO: Error handling? */
+					alert("Error, server responded: " + data)
+				}
+			},
+			error: function (jqXHR, txtStatus, error) {
+				console.log(jqXHR)
+				console.log(txtStatus)
+				console.log(error)
+			}
+		})
+		e.preventDefault()
+	})
 </scripttoload>
