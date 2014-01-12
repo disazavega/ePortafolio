@@ -18,7 +18,7 @@
         <h3>Concepts</h3>
         <div id='concept-choose-form' class='edit-list-container'>
             {foreach $concepts_list as $item}
-            <label><input type='radio' value='{$item.name}' name='concept_id'> {$item.name}</label>
+            <label><input type='radio' value='{$item.id}' name='concept_id'> {$item.name}</label>
             {/foreach}
         </div>
         <div class='bottom-buttons-container'>

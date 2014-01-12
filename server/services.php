@@ -36,10 +36,12 @@ class Services {
         return $queryConcepts;
     }
     
+    
     function ListConceptsBySchemaId($schemaId) {
         $queryConcepts = $this->conceptMapper->loadBy('idSchema', $schemaId);
         return $queryConcepts;
     }
+    
     
     function ListConceptById($id) {
 	return $this->conceptMapper->load($id);
@@ -193,12 +195,17 @@ class Services {
     }
     
     //Services definition: S1102
-    function UpdateConcept($idSchema, $conceptName){
-        $temp = new Concept();
-        $temp->idSchema = $idSchema;
-        $temp->name = $conceptName;
-        return $this->conceptMapper->save($temp);
-    } 
+    function UpdateConcept ($id, $name) {
+      $concept = $this->conceptMapper->load($id);
+      $concept->name = $name;
+      return $this->conceptMapper->save($concept);
+    }
+//     function UpdateConcept($idSchema, $conceptName){
+//         $temp = new Concept();
+//         $temp->idSchema = $idSchema;
+//         $temp->name = $conceptName;
+//         return $this->conceptMapper->save($temp);
+//     } 
     
     //Services definition: S1103
     function UpdateAttribute($idConcept, $attrName, $typeAttr){

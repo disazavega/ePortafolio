@@ -31,6 +31,7 @@ if ($_POST['action'] === "new") {
 
 //GUI for concept update
 else if ($_POST['action'] === 'edit' && is_numeric($_POST['concept_id'])) {
+  
   $service = new Services();
   
   
@@ -39,19 +40,13 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['concept_id'])) {
   
   $id = intval($_POST['concept_id']);
   
-  $concepts = $service->ListConceptById($id);
-  $list = array();
-  
-  //Assigning Values
-  foreach ($concepts as $concept) {
-    $list = array(
-	    'id' => $concept->id,
-	    'name' => $concept->name
-	  );
-  }
+  $concept = $service->ListConceptById($id);
   
   $smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
-//  $smarty->assign('concepts_list',$list);
+  $smarty->assign('concept', array(
+	  'id' => $concept->id,
+	  'name' => sanitize($concept->name)
+  ));
   $smarty->display('tpl/concept-edit.tpl');
   
 }
@@ -77,5 +72,22 @@ else if ($_POST['action'] === 'create') { // "create" is the submit action of "n
 	}
 	else{
 		echo 'OK';	
+	}
+}
+
+ else if ($_POST['action'] === 'update' && is_numeric($_POST['concept_id']) && !empty($_POST['concept_name'])) { // "update" is the submit action of "edit"
+	$service = new Services();
+
+	$id = intval($_POST['concept_id']);
+	$concept_name = $_POST['concept_name'];
+
+	$res = $service->UpdateConcept($_POST['concept_id'], $_POST['concept_name']);
+
+	//TODO: handle concepts
+
+	if (!$res) {
+		echo 'Error update MC test message!';
+	} else {
+		echo 'OK';
 	}
 }
