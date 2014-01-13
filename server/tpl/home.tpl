@@ -51,12 +51,12 @@
                 <input type='button' name='action' value='Edit' class='edit-concept-btn' />
                 <input type='button' name='action' value='Delete' class='delete-concept-btn' />
             </div>
-            <input type='button' name='action' value='alignment' class='alignment-button' />
+            <input type='button' name='action' value='Alignment' class='alignment-button' />
         </form>
     </div>
 </div>
 <div class='schema-container gui-folding-block'>
-    <h2 class='gui-folding-block-title'>Schemas!!!</h2>
+    <h2 class='gui-folding-block-title'>Schema</h2>
     <div class='gui-folding-block-content gui-init-unfolded' >
         <h3>Schemas</h3>
         <form id='schema-choose-form' >
@@ -198,5 +198,6 @@
                 })
             }
         })
+        
     })
 </scripttoload>

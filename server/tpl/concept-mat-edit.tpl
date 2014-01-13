@@ -47,4 +47,8 @@ $(document).ready(function () {
 		e.preventDefault()
 	})
 });
+
+$('.cancel-button').click(function (e) {
+        load_url('/home.php'); return false;
+    });	
 </scripttoload>
