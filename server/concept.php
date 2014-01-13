@@ -90,4 +90,16 @@ else if ($_POST['action'] === 'create') { // "create" is the submit action of "n
 	} else {
 		echo 'OK';
 	}
+}  else if ($_POST['action'] === 'delete') { 
+	$service = new Services();
+	$concept_id = intval($_POST['concept_id']);
+
+	$res = $service->DeleteConcept($concept_id);
+
+	if (!$res) {
+		echo 'Could not delete Concept: ';
+	} 
+	else {
+	echo 'OK';
+	}
 }

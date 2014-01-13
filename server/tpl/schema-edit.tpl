@@ -54,7 +54,7 @@
         var c = get_concept_checked_input()
         if (c.length) {
             name = c.eq(0).parent().contents()[1].data /* this is clearly not good code TODO improve that */
-            answer = window.confirm('Are you sure you want to desintegrate the materialized concept "' + name + '"')
+            answer = window.confirm('Are you sure you want to delete the concept "' + name + '"')
             if (answer) {
                 $.post(SERVER_BASE_URL + '/concept.php', {
                     'action': 'delete',
