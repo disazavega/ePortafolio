@@ -160,11 +160,11 @@
             var c = get_schema_checked_input()
             if (c.length) {
                 name = c.eq(0).parent().contents()[1].data /* this is clearly not good code TODO improve that */
-                answer = window.confirm('Are you sure you want to desintegrate the materialized concept "' + name + '"')
+                answer = window.confirm('Are you sure you want to delete Schema "' + name + '"')
                 if (answer) {
                     $.post(SERVER_BASE_URL + '/schema.php', {
                         'action': 'delete',
-                        'cm_id': c.eq(0).attr('value')
+                        'schema_id': c.eq(0).attr('value')
                     },
                     function (data, txtStatus, jqXHR) {
                         if (data === 'OK') {
