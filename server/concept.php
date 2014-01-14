@@ -53,25 +53,19 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['concept_id'])) {
 
 else if ($_POST['action'] === 'create') { // "create" is the submit action of "new"
 	$service = new Services();
-
+	
 	$concept_name = $_POST['concept_name'];
 	
 	//storing concept	
 	$res = $service->CreateConcept($_POST['schema_id'], $_POST['concept_name']);
-
 	if (!$res) {
-		echo 'Error create Schema instance!';
-	}
-
-	//storing concept for concept
-	//TODO: to be cleared if it is fine!!!
-	//$res = $service->CreateConcept($res, $_POST['concept_name']);
-
-	if (!$res) {
-		echo 'Error create Concept (Schema)!';
-	}
-	else{
-		echo 'OK';	
+	  echo 'Error creating Concept !';
+	} else {
+	  
+	  for ($i=0; $i<sizeof($_POST['attributename']); $i++) {
+	    $service->CreateAttribute($res, $_POST['attributename'][$i], $_POST['attributetype'][$i]);
+	  }
+	  echo 'OK';	
 	}
 }
 

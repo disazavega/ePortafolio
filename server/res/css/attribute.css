@@ -1,0 +1,31 @@
+.edit-list-container {
+	border: 1px solid black;
+	padding: 2px;
+}
+
+.edit-list-container label {
+	display:block;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+
+
+
+.attributes .table {
+  display: table;
+  overflow: auto;
+}
+
+.attributes .row, .attributes .header-row{
+  display: table-row;
+}
+
+.header-row > div, .row > div{
+  display: table-cell;
+}
+
+
+.row > div > input{
+  width: 112px;
+}
