@@ -29,7 +29,7 @@
 	    <option value="text">Text</option>
 	    <option value="number">Number</option>
 	    <option value="url">URL</option>
-	    <option value="currenty">Currency</option>
+	    <option value="currency">Currency</option>
 	  </select>
 	</div>
       </div>
