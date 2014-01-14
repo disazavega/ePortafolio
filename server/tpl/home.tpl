@@ -189,13 +189,15 @@
         })
 
         $('.alignment-button').click(function (e) {
-            var c = get_schema_checked_input()
+            var c = get_cm_checked_input()
             if (c.length) {
                 c = c.eq(0).attr('value')
                 load_url('/alignment.php', {
                     'cm_id': c,
                     'action': 'list',
                 })
+            } else {
+                alert('Nothing has been checked!')
             }
         })
         
