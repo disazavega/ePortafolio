@@ -11,6 +11,7 @@
 	        <input type='button' name='action' value='New' class='new-alignment-btn' />
 	        <input type='button' name='action' value='Edit' class='edit-alignment-btn' />
 	        <input type='button' name='action' value='Delete' class='delete-alignment-btn' />
+                <input type='reset' class='cancel-button' value='Cancel' />
 	    </div>
 	</form>	
 </div>
@@ -80,4 +81,8 @@
             }
         });
     })
+    
+    $('.cancel-button').click(function (e) {
+        load_url('/home.php'); return false;
+    });
 </scripttoload>
