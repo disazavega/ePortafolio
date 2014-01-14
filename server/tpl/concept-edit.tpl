@@ -1,6 +1,7 @@
 <link href='{$BASE_URL}/res/css/home.css' rel='stylesheet' />
 <link href='{$BASE_URL}/res/css/concept.css' rel='stylesheet' />
-<link href='{$BASE_URL}/res/css/concept.css' rel='stylesheet' />
+<link href='{$BASE_URL}/res/css/schema.css' rel='stylesheet' />
+<link href='{$BASE_URL}/res/css/attribute.css' rel='stylesheet' />
 <h2>Concept Update</h2>
 
 <form class='concept-edit-form'>
@@ -12,6 +13,44 @@
         <label for='concept_name_input'>Name</label>     <input id='concept_name_input' type='text' name='concept_name' value='{$concept.name}'/>
     </div>
 
+    
+    <h3>Attributes</h3>
+    
+    <div id="attributes" class='attributes table'>
+      
+      <div class='attributes-header header-row'>
+	<div>Name</div> <div>Type</div>
+      </div>
+      {foreach from=$attributes item=attr}
+      <div class='attribute row'>
+	<div><input type="text" value="{$attr.name}" name="attributename[]"/></div> 
+	<div>
+	  <select name="attributetype[]">
+	    <option value="text">Text</option>
+	    <option value="number">Number</option>
+	    <option value="url">URL</option>
+	    <option value="currenty">Currency</option>
+	  </select>
+	</div>
+      </div>
+      {/foreach}
+      
+      
+
+    </div>
+    
+    <div>
+      <div>
+	<input type="button" id="add-attribute" value="+" />
+	<input type="button" id="remove-attribute" value="-"/>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
 	<div class='bottom-buttons-container'>
             <input type='reset' value='Cancel' class='cancel-button' />
             <input type='submit' value='Save/Create' class='submit-button' />

@@ -42,11 +42,16 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['concept_id'])) {
   
   $concept = $service->ListConceptById($id);
   
+  $attributes = $service->ListAttributeConcept($id);
+  for($i=0;$i<sizeof($attributes);$i++) {
+    $attributes[$i] = (array)$attributes[$i];
+  }
   $smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
   $smarty->assign('concept', array(
 	  'id' => $concept->id,
 	  'name' => sanitize($concept->name)
   ));
+  $smarty->assign('attributes', $attributes);
   $smarty->display('tpl/concept-edit.tpl');
   
 }

@@ -22,7 +22,7 @@
       </div>
       
       <div class='attribute row'>
-	<div><input type="text" name="attributename[]"></input></div> 
+	<div><input type="text" name="attributename[]"/></div> 
 	<div>
 	  <select name="attributetype[]">
 	    <option value="text">Text</option>
@@ -95,7 +95,7 @@
     
     $('#add-attribute').click(function (e) {
       var newrow = '<div class="attribute row">' + 
-	'<div><input type="text" name="attributename[]"></input></div>' + 
+	'<div><input type="text" name="attributename[]"/></div>' + 
 	'<div>' +
 	  '<select name="attributetype[]">' + 
 	    '<option value="text">Text</option>' + 
