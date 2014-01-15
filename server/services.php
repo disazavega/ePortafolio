@@ -208,13 +208,22 @@ class Services {
 //     } 
     
     //Services definition: S1103
-    function UpdateAttribute($idConcept, $attrName, $typeAttr){
+    function UpdateAttribute($idAttribute, $attrName, $typeAttr){
         $attrMapper = new ModelMapper(get_class(new Attribute()));
-        $temp = new Attribute();
-        $temp->idConcept = $idConcept;
+        $temp = $attrMapper->load($idAttribute);
         $temp->name = $attrName;
         $temp->type = $typeAttr;
         return $attrMapper->save($temp);
+    }
+    
+    function DeleteAttribute($idAttribute) {
+      $attrMapper = new ModelMapper(get_class(new Attribute()));
+      $temp = $attrMapper->load($idAttribute);
+      if($temp) {
+	return $attrMapper->delete($temp);
+      } else {
+	return true;
+      }
     }
     
     //Services definition S1201

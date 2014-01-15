@@ -82,12 +82,57 @@ else if ($_POST['action'] === 'create') { // "create" is the submit action of "n
 
 	$res = $service->UpdateConcept($_POST['concept_id'], $_POST['concept_name']);
 
-	//TODO: handle concepts
-
 	if (!$res) {
-		echo 'Error update MC test message!';
+	  echo 'Error update MC test message!';
 	} else {
-		echo 'OK';
+	  
+	  /*
+	   * Logic to delete attributes
+	   * 
+	   * Deletes if:
+	   *   - attributename is empty
+	   *   - attribute field is removed
+	   */
+	  $attributeList = $service->ListAttributeConcept($res);
+	  if($attributeList) {
+	    foreach($attributeList as $attribute) {
+	      $toDelete = false;
+	      if(isset($_POST['attributename']) === false) {
+		$toDelete = true;
+	      } else {
+		foreach($_POST['attributeid'] as $id) {
+		  if($attribute->id == $id) {
+		    $toDelete = false;
+		    break;
+		  }
+		  $toDelete = true;
+		}
+	      }
+	      if($toDelete) {
+		$service->DeleteAttribute($attribute->id);
+	      }
+	    }
+	  }
+	  
+	  /**
+	   * Logic to add / edit attributes
+	   */
+	  if(isset($_POST['attributename'])) {
+	    for ($i=0; $i<sizeof($_POST['attributename']); $i++) {
+	      if (empty($_POST['attributename'][$i])) {
+		if(isset($_POST['attributeid'][$i])) {
+		  $service->DeleteAttribute($_POST['attributeid'][$i]);
+		  unset($_POST['attributeid'][$i]);
+		}
+	      } else if(isset($_POST['attributeid'][$i]) && !empty($_POST['attributeid'][$i])) {		
+		$service->UpdateAttribute($_POST['attributeid'][$i], $_POST['attributename'][$i], $_POST['attributetype'][$i]);
+	      } else {
+		$service->CreateAttribute($res, $_POST['attributename'][$i], $_POST['attributetype'][$i]);
+	      }
+	    }
+	  }
+	  
+	  echo 'OK';
 	}
 }  else if ($_POST['action'] === 'delete') { 
 	$service = new Services();

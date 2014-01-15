@@ -23,7 +23,8 @@
       </div>
       {foreach from=$attributes item=attr}
       <div class='attribute row'>
-	<div><input type="text" value="{$attr.name}" name="attributename[]"/></div> 
+	<input type="hidden" value="{if isset($attr.id)}{$attr.id}{/if}" name="attributeid[]"/>
+	<div><input type="text" value="{if isset($attr.name)}{$attr.name}{/if}" name="attributename[]"/></div> 
 	<div>
 	  <select name="attributetype[]">
 	    <option value="text">Text</option>
@@ -34,7 +35,6 @@
 	</div>
       </div>
       {/foreach}
-      
       
 
     </div>
@@ -132,4 +132,24 @@
 		})
 		e.preventDefault()
 	})
+	
+	$('#add-attribute').click(function (e) {
+	  var newrow = '<div class="attribute row">' + 
+	    '<div><input type="text" name="attributename[]"/></div>' + 
+	    '<div>' +
+	      '<select name="attributetype[]">' + 
+		'<option value="text">Text</option>' + 
+		'<option value="number">Number</option>' + 
+		'<option value="url">URL</option>' + 
+		'<option value="currency">Currency</option>' + 
+	      '</select>' + 
+	    '</div>' + 
+	  '</div>'
+	  
+	$('#attributes').append(newrow);
+      });
+      
+      $('#remove-attribute').click(function (e) {
+	$('#attributes .row').get(length-1).remove()
+      });
 </scripttoload>
