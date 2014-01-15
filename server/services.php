@@ -156,12 +156,13 @@ class Services {
     }
 
     //Services definition: S1002
-    function CreateSchema($name, $author){
+    function CreateSchema($name, $author, $created){
 	$schemasMapper = new ModelMapper(get_class(new Schema()));
 	$temp = new Schema();	
 	$temp->name = $name;
 	$temp->author = $author;
         //TODO add date field 
+	$temp->createdAt = $created;
 	return $schemasMapper->save($temp);
     }
     
@@ -184,12 +185,13 @@ class Services {
     } 
     
     //Services definition: S1101
-    function UpdateSchema($idSchema, $name, $author){
+    function UpdateSchema($idSchema, $name, $author, $created){
 	$schemasMapper = new ModelMapper(get_class(new Schema()));
 	$temp = new Schema();	
 	$temp->id = $idSchema;
 	$temp->name = $name;
 	$temp->author = $author;
+	$temp->createdAt = $created;
         //TODO add date field
 	return $schemasMapper->save($temp);
     }
