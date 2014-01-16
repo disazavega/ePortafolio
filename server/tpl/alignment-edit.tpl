@@ -1,14 +1,11 @@
 <link href='{$BASE_URL}/res/css/home.css' rel='stylesheet' />
 <link href='{$BASE_URL}/res/css/concept.css' rel='stylesheet' />
 <link href='{$BASE_URL}/res/css/alignment.css' rel='stylesheet' />
-<h2>Alignment / Creation</h2>
+<h2>Alignment / Edition</h2>
 
 <form class='alignment-new-form'>
 	<input type='hidden' name='action' value='create'>
 	<input type='hidden' name='cm_id' value='{$cm.id}'>
-
-	<label for='alignment-name' >Name</label>
-	<input type='text' id='alignment-name' name="alignment_name" value='{$cm.name}' />
 
 	<div class='two-edit-list-container' >
 		<div class='alignment-edit-list-container edit-list-container'>

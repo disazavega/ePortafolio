@@ -87,7 +87,7 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['schema_id'])) {
 	$id = intval($_POST['schema_id']);
 	$schema_name = $_POST['schema_name'];
 
-	$res = $service->UpdateSchema($_POST['schema_id'], $_POST['schema_name'], $_POST['schema_author']);
+	$res = $service->UpdateSchema($_POST['schema_id'], $_POST['schema_name'], $_POST['schema_author'], $_POST['schema_date']);
 
 	//TODO: handle concepts
 
@@ -102,7 +102,7 @@ else if ($_POST['action'] === 'edit' && is_numeric($_POST['schema_id'])) {
 	$schema_name = $_POST['schema_name'];
 	
 	//storing schema	
-	$res = $service->CreateSchema($_POST['schema_name'], $_POST['schema_author']);
+	$res = $service->CreateSchema($_POST['schema_name'], $_POST['schema_author'], $_POST['schema_date']);
 
 	if (!$res) {
 		echo 'Error create Schema instance!';

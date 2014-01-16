@@ -156,12 +156,13 @@ class Services {
     }
 
     //Services definition: S1002
-    function CreateSchema($name, $author){
+    function CreateSchema($name, $author, $created){
 	$schemasMapper = new ModelMapper(get_class(new Schema()));
 	$temp = new Schema();	
 	$temp->name = $name;
 	$temp->author = $author;
         //TODO add date field 
+	$temp->createdAt = $created;
 	return $schemasMapper->save($temp);
     }
     
@@ -184,12 +185,13 @@ class Services {
     } 
     
     //Services definition: S1101
-    function UpdateSchema($idSchema, $name, $author){
+    function UpdateSchema($idSchema, $name, $author, $created){
 	$schemasMapper = new ModelMapper(get_class(new Schema()));
 	$temp = new Schema();	
 	$temp->id = $idSchema;
 	$temp->name = $name;
 	$temp->author = $author;
+	$temp->createdAt = $created;
         //TODO add date field
 	return $schemasMapper->save($temp);
     }
@@ -208,13 +210,22 @@ class Services {
 //     } 
     
     //Services definition: S1103
-    function UpdateAttribute($idConcept, $attrName, $typeAttr){
+    function UpdateAttribute($idAttribute, $attrName, $typeAttr){
         $attrMapper = new ModelMapper(get_class(new Attribute()));
-        $temp = new Attribute();
-        $temp->idConcept = $idConcept;
+        $temp = $attrMapper->load($idAttribute);
         $temp->name = $attrName;
         $temp->type = $typeAttr;
         return $attrMapper->save($temp);
+    }
+    
+    function DeleteAttribute($idAttribute) {
+      $attrMapper = new ModelMapper(get_class(new Attribute()));
+      $temp = $attrMapper->load($idAttribute);
+      if($temp) {
+	return $attrMapper->delete($temp);
+      } else {
+	return true;
+      }
     }
     
     //Services definition S1201

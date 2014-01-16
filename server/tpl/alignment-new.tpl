@@ -7,19 +7,16 @@
 	<input type='hidden' name='action' value='create'>
 	<input type='hidden' name='cm_id' value='{$cm.id}'>
 
-	<label for='alignment-name' >Name</label>
-	<input type='text' id='alignment-name' name="alignment_name" value='{$cm.name}' />
-
 	<div class='two-edit-list-container' >
+		<div class='alignment-edit-list-container edit-list-container'>
 		<h3>Attribute</h3>
-		<div class='alignment-edit-list-container'>
 			{foreach $attributes_list as $item}
 			<label><input type='radio' name='attribute_id' value='{$item.id}' />{$item.name}</label>
 			{/foreach}
 		</div>
 
+		<div class='alignment-edit-list-container edit-list-container'>
 		<h3>Field</h3>
-		<div class='alignment-edit-list-container'>
 			{foreach $fields_list as $item}
 			<label><input type='radio' name='field_id' value='{$item.id}' />{$item.name}</label>
 			{/foreach}

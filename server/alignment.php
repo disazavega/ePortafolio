@@ -31,7 +31,7 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
         $attribute_align = $service->RecoverAttribute($alignment->idAttribute);
         $list[] = array(
                 'id' => $alignment->id,
-                'name' => sanitize("{$field_aling->name} / {$attribute_align->name}")
+                'name' => sanitize(" {$attribute_align->name} / {$field_aling->name} ")
          );
     }
 
@@ -51,9 +51,6 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
     $cm_id = intval($this_alignment->idConceptMaterialized);
     $attributes = $service->ListAttributesConceptMaterialized($cm_id);
     $fields = $service->ListFieldsForm($form_id);
-//      echo '<pre>';
-//      var_dump($fields);
-//      echo '</pre>';
 
     // create object
     $smarty = new Smarty;
@@ -61,10 +58,8 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
     //First smarty assing
 
     $smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
-        // Normaly thats no the
     $smarty->assign('cm', array(
-        'id' => $this_alignment->id,
-        'name' => sanitize("No Name right ?")
+        'id' => $this_alignment->id
     ));
 
     $list_fields = array();
@@ -128,8 +123,7 @@ if ($_POST['action'] === 'list' && is_numeric($_POST['cm_id'])) {
 
     $smarty->assign('BASE_URL', 'http://127.0.0.1:8080');
     $smarty->assign('cm', array(
-        'id' => $id,
-        'name' => sanitize("Normaly there s no name, right !")
+        'id' => $id
     ));
 
     $list_fields = array();
